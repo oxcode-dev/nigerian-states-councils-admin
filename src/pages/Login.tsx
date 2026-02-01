@@ -2,6 +2,7 @@ import AuthLayout from "../layout/AuthLayout";
 import { Link } from "react-router";
 import { useForm } from "react-hook-form"
 import axios from "axios";
+import { useState } from "react";
 
 type Inputs = {
   email: string
@@ -9,6 +10,7 @@ type Inputs = {
 }
 
 export default function Login() {
+    const [isLoading, setIsLoading] =  useState(false);
     const {
         register,
         handleSubmit,
@@ -25,6 +27,8 @@ export default function Login() {
         }
 
         try {
+            setIsLoading(true);
+
             const config = {
                 headers: {
                     'Content-Type': 'application/json',
@@ -54,6 +58,8 @@ export default function Login() {
             //     console.error('Error ', error.message)
             // }
             
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -103,7 +109,9 @@ export default function Login() {
                             <Link to="/forgot-password" className="font-medium text-blue-600">Forgot Password?</Link>
                         </div>
                         <div className="py-4 font-semibold">
-                            <button className="bg-blue-600 text-white px-4 py-3 w-full rounded">Login</button>
+                            <button disabled={isLoading} className="bg-blue-600 text-white px-4 py-3 w-full rounded">
+                                {isLoading ? "Logging in..." : "Login"}
+                            </button>
                         </div>
                     </form>
                 </div>
