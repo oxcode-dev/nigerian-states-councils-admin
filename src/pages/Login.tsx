@@ -48,7 +48,7 @@ export default function Login() {
             // navigate('/admin')
 
         } catch (error) {
-            console.error(error);
+            console.log(error, error?.response?.data);
             // if(error.response) {
             //     setIsSuccess(false)
             //     setStatusMessage(error?.response?.data?.message || "An error occurred")
