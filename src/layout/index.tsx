@@ -34,7 +34,7 @@ export default function Layout ({ children }: PropType) {
                 </div>
 
                 <main className="w-full md:pl-64 text-gray-500 pt-16 md:pt-0">
-                    <div className="p-2 md:p-4">
+                    <div className="p-2 md:p-8">
                         {children}
                     </div>
                 </main>
