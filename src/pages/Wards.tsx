@@ -1,6 +1,6 @@
 import Layout from "../layout";
 
-export default function States() {
+export default function Wards() {
     return (
         <Layout>
             <div className="p-4">
