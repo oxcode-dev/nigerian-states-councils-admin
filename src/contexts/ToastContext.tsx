@@ -29,6 +29,7 @@ type ToastContextType = {
     ) => void;
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const ToastContext = createContext<ToastContextType | undefined>(undefined);
 
 type PropsType = {
@@ -80,6 +81,7 @@ export const ToastContextProvider = ({ children }: PropsType) : JSX.Element => {
     )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useToastContext() {
     const context = useContext(ToastContext);
     if (context === undefined) {
