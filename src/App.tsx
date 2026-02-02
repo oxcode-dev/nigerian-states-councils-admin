@@ -4,6 +4,7 @@ import Login from "./pages/Login"
 import ForgotPassword from "./pages/ForgotPassword"
 import ProtectedRoute from "./components/ProtectedRoutes"
 import PublicRoute from "./components/PublicRoutes"
+import Home from "./pages/Index"
 
 function App() {
 
@@ -11,7 +12,6 @@ function App() {
     <>
      <Router>
       <Routes>
-        {/* <Route path="/" element={<Home />} /> */}
         <Route path="/login" element={
           <PublicRoute>
             <Login />
@@ -35,14 +35,6 @@ function App() {
       </Routes>
      </Router>
     </>
-  )
-}
-
-const Home = () => {
-  return (
-    <div>
-      <h1>Welcome to the Home Page</h1>
-    </div>
   )
 }
 
