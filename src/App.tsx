@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import Login from "./pages/Login"
 import ForgotPassword from "./pages/ForgotPassword"
 import ProtectedRoute from "./components/ProtectedRoutes"
+import PublicRoute from "./components/PublicRoutes"
 
 function App() {
 
@@ -11,8 +12,18 @@ function App() {
      <Router>
       <Routes>
         {/* <Route path="/" element={<Home />} /> */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/login" element={
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
+          } 
+        />
+        <Route path="/forgot-password" element={
+          <PublicRoute>
+            <ForgotPassword />
+          </PublicRoute>
+          } 
+        />
         <Route
           path="/*"
           element={

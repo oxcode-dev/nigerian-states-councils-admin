@@ -41,7 +41,7 @@ export default function Login() {
                 email: data.email,
                 password: data.password,
             }, config)
-            console.log(response.data);
+            // console.log(response.data);
 
             localStorage.setItem('token', response.data.token)
 
@@ -49,7 +49,7 @@ export default function Login() {
 
         } catch (error) {
             showToast('Error Occurred', error?.response?.data?.message || 'Error', 'error', true, 10)
-            console.log(error, error?.response?.data);
+            // console.log(error, error?.response?.data);
         } finally {
             setIsLoading(false);
         }
