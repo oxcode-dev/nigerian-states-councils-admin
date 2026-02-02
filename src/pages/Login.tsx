@@ -110,7 +110,7 @@ export default function Login() {
                             {errors.password && <span className="text-red-500 text-sm">Password is required</span>}
                         </div>
                         <div className="py-1 flex justify-end">
-                            <Link to="/forgot-password" className="font-medium text-blue-600">Forgot Password?</Link>
+                            <Link to="/forgot-password" className="font-medium text-blue-600 text-sm">Forgot Password?</Link>
                         </div>
                         <div className="py-4 font-semibold">
                             <button disabled={isLoading} className="bg-blue-600 text-white px-4 py-3 w-full rounded">
