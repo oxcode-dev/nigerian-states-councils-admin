@@ -24,7 +24,11 @@ export default function ForgotPassword() {
                         </div>
                         <div className="py-1">
                             <label className="text-sm font-medium text-gray-500">Email</label>
-                            <input className="block w-full h-12 bg-gray-100 border rounded border-gray-200 my-1 p-2 focus:outline-none" type="email" required />
+                            <input 
+                                className="block w-full h-12 bg-gray-100 border text-gray-500 rounded border-gray-200 my-1 p-2 focus:outline-none"
+                                type="email" 
+                                required
+                            />
                         </div>
 
                         <div className="py-1 flex justify-end">

@@ -90,7 +90,7 @@ export default function Login() {
                         <div className="py-1">
                             <label className="text-sm font-medium text-gray-500">Email</label>
                             <input
-                                className="block w-full h-12 bg-gray-100 border rounded border-gray-200 my-1 p-2 focus:outline-none" 
+                                className="block w-full h-12 bg-gray-100 border text-gray-500 rounded border-gray-200 my-1 p-2 focus:outline-none" 
                                 type="email" 
                                 required
                                 {...register("email", { required: true })}
@@ -101,7 +101,7 @@ export default function Login() {
                             <label className="text-sm font-medium text-gray-500">Password</label>
                             <div className="block w-full h-12 bg-gray-100 border rounded border-gray-200 my-1 p-2 focus:outline-none relative">
                                 <input 
-                                    className="w-full h-full bg-transparent focus:outline-none" 
+                                    className="w-full h-full bg-transparent focus:outline-none text-gray-500" 
                                     type="password" 
                                     required 
                                     {...register("password", { required: true })}
