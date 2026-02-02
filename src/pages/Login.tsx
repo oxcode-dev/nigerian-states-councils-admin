@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { useForm } from "react-hook-form"
 import axios from "axios";
 import { useState } from "react";
+import { useToastContext } from "../contexts/ToastContext";
 
 type Inputs = {
   email: string
@@ -17,6 +18,8 @@ export default function Login() {
         // watch,
         formState: { errors },
     } = useForm<Inputs>()
+
+    const { showToast } = useToastContext()
 
     // const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
     const onSubmit = async(data: Inputs) => {
@@ -48,6 +51,7 @@ export default function Login() {
             // navigate('/admin')
 
         } catch (error) {
+            showToast('Error Occurred', error?.response?.data?.message || '', 'error', true, 10)
             console.log(error, error?.response?.data);
             // if(error.response) {
             //     setIsSuccess(false)
