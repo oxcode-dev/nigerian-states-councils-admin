@@ -57,7 +57,7 @@ export default function Sidebar ({ isOpen, setIsOpen}: PropType) {
                 <nav className="flex-1 flex flex-col overflow-y-auto py-4">
                     {
                         navItems.map((nav, key) => (
-                            <Link to={nav.link} key={key} className="inline-flex text-base space-x-3 items-center text-gray-500 hover:text-blue-500 hover:bg-blue-50 py-2 px-3">
+                            <Link to={nav.link} key={key} className="inline-flex text-base space-x-3 items-center text-gray-500 hover:text-blue-500 hover:bg-blue-50 py-3 px-3">
                                 {/* <nav.icon className="size-5" /> */}
                                 <span>{nav.label}</span>
                             </Link>
