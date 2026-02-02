@@ -5,6 +5,7 @@ import ForgotPassword from "./pages/ForgotPassword"
 import ProtectedRoute from "./components/ProtectedRoutes"
 import PublicRoute from "./components/PublicRoutes"
 import Home from "./pages/Index"
+import States from "./pages/States"
 
 function App() {
 
@@ -42,9 +43,7 @@ const AdminRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      {/* <Route path="/product/create" element={<CreateProduct />} />
-      <Route path="/product/edit/:id" element={<EditProduct />} />
-      <Route path="/product/delete/:id" element={<DeleteProduct />} /> */}
+      <Route path="/states" element={<States />} />
     </Routes>
   )
 }

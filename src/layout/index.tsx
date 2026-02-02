@@ -7,7 +7,7 @@ type PropType = {
     children: React.ReactNode
 }
 
-export default function AppLayout ({ children }: PropType) {
+export default function Layout ({ children }: PropType) {
     const [isOpen, setIsOpen] = useState(false)
     return (
         <>
