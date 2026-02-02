@@ -1,5 +1,5 @@
 import AuthLayout from "../layout/AuthLayout";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form"
 import axios from "axios";
 import { useState } from "react";
@@ -11,6 +11,7 @@ type Inputs = {
 }
 
 export default function Login() {
+    const navigate = useNavigate();
     const [isLoading, setIsLoading] =  useState(false);
     const {
         register,
@@ -24,8 +25,6 @@ export default function Login() {
     // const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
     const onSubmit = async(data: Inputs) => {
         if(!data.email || !data.password) {
-            // setIsSuccess(false)
-            // setStatusMessage('Fill all the input.')
             return;
         }
 
@@ -44,24 +43,13 @@ export default function Login() {
             }, config)
             console.log(response.data);
 
-            // localStorage.setItem('token', response.data.token)
+            localStorage.setItem('token', response.data.token)
 
-            // setIsSuccess(true)
-            // setStatusMessage('Login successful');
-            // navigate('/admin')
+            navigate('/')
 
         } catch (error) {
             showToast('Error Occurred', error?.response?.data?.message || '', 'error', true, 10)
             console.log(error, error?.response?.data);
-            // if(error.response) {
-            //     setIsSuccess(false)
-            //     setStatusMessage(error?.response?.data?.message || "An error occurred")
-            // } else if(error.request) {
-            //     console.error(error.request)
-            // } else {
-            //     console.error('Error ', error.message)
-            // }
-            
         } finally {
             setIsLoading(false);
         }
