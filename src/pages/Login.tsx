@@ -48,7 +48,7 @@ export default function Login() {
             navigate('/')
 
         } catch (error) {
-            showToast('Error Occurred', error?.response?.data?.message || '', 'error', true, 10)
+            showToast('Error Occurred', error?.response?.data?.message || 'Error', 'error', true, 10)
             console.log(error, error?.response?.data);
         } finally {
             setIsLoading(false);
