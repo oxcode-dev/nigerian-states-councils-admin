@@ -46,7 +46,9 @@ export default function Sidebar ({ isOpen, setIsOpen}: PropType) {
         <aside className="w-64 fixed top-0 left-0 bottom-0 z-50">
             <div className="w-full bg-white border-r border-gray-200 flex-shrink-0 flex flex-col h-full">
                 <div className="px-3 pt-6 pb-2 flex items-center space-x-3 justify-between">
-                    <span className="text-xl font-bold text-slate-800 tracking-tight">Socials</span>
+                    <span className="text-xl font-bold text-slate-800 tracking-tight">
+                        Nigerian States & Councils Admin
+                    </span>
                     <a href="#" onClick={() => setIsOpen(!isOpen)} className="md:hidden">
                         <XMarkIcon className="size-6" />
                     </a>
