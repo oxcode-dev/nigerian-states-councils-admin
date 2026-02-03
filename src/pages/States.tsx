@@ -1,7 +1,11 @@
 import { PencilIcon, TrashIcon } from "@heroicons/react/20/solid";
 import Layout from "../layout";
+import { useFetchStates } from "../hooks/useFetchStates";
 
 export default function States() {
+    const { states, isLoading, error } = useFetchStates()
+    console.log(states, isLoading, error);
+
     return (
         <Layout>
             <main className="rounded-lg bg-white text-slate-500 px-4 py-4">
