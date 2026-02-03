@@ -1,5 +1,5 @@
 export async function get(url: string, token: string = '') {
-    const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api${url}`, {
+    const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}${url}`, {
         headers: { 
             Authorization: `${token ? 'Bearer ' + token : ''}`,
             'Content-Type': 'application/json',
@@ -11,7 +11,7 @@ export async function get(url: string, token: string = '') {
 }
 
 export async function post(url: string, data={}, token: string = '') {
-    const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api${url}`, {
+    const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}${url}`, {
         method: 'POST',
         headers: {
             Authorization: `${token ? 'Bearer ' + token : ''}`,
@@ -29,7 +29,7 @@ export async function post(url: string, data={}, token: string = '') {
 }
 
 export async function postFile(url: string, data={}, token: string = '') {
-    const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api${url}`, {
+    const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}${url}`, {
         method: 'POST',
         headers: { 
             Authorization: `${token ? 'Bearer ' + token : ''}`,
@@ -48,7 +48,7 @@ export async function postFile(url: string, data={}, token: string = '') {
 }
 
 export async function put(url: string, data={}, token: string = '') {
-    const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api${url}`, {
+    const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}${url}`, {
         method: 'PUT',
         headers: { 
             Authorization: `${token ? 'Bearer ' + token : ''}`,
@@ -66,7 +66,7 @@ export async function put(url: string, data={}, token: string = '') {
 }
 
 export async function deleteRequest(url: string, token: string = '') {
-    const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/api${url}`, {
+    const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}${url}`, {
         method: 'DELETE',
         headers: { 
             Authorization: `${token ? 'Bearer ' + token : ''}`,
