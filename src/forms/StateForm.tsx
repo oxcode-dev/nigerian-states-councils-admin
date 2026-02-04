@@ -40,6 +40,7 @@ const StateForm = ({ open, setOpen, state } : FormProp) => {
             slogan: state?.slogan || '',
             description: state?.description || '',
             creation_year: state?.creation_year || 0,
+            _id: state?._id || null,
         }
     });
 
@@ -50,6 +51,7 @@ const StateForm = ({ open, setOpen, state } : FormProp) => {
     const handleForm = async (data: StateFormProp) => {
 
         const url = `${API_BASE_URL}/states${data._id ? '/' + data._id : ''}`
+        // return console.log('URL', url);
 
         const response = await fetch(url, {
             method: data._id ? 'PUT' : 'POST',
