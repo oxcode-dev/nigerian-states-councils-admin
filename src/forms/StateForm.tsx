@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 import { useForm } from "react-hook-form"
 import Modal from '../components/Modal';
 import { geoZones } from '../constants';
+import { useToastContext } from '../contexts/ToastContext';
 
 type StateFormProp = {
     name: string
@@ -27,6 +28,8 @@ type FormProp = {
 
 const StateForm = ({ open, setOpen, state } : FormProp) => {
 
+    const { showToast } = useToastContext()
+    
     const [errorBag, setErrorBag] = useState({})
 
     const queryClient = useQueryClient()
@@ -77,16 +80,19 @@ const StateForm = ({ open, setOpen, state } : FormProp) => {
             }),
         })
 
-        return console.log('response', response.json);
+        // return console.log('response', response.json);
 
         const feedback = await response.json()
 
         if (feedback?.success) {
-            queryClient.invalidateQueries({ queryKey: ['list_address'] })
+            queryClient.invalidateQueries({ queryKey: ['states'] })
             setErrorBag({})
             setOpen(false)
+            
         } else {
-            setErrorBag(feedback?.data)
+            console.log('error', feedback);
+            // setErrorBag(feedback?.data)
+            // showToast('Error Occurred', error?.response?.data?.message || 'Error', 'error', true, 10)
         }
 
     }
