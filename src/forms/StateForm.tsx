@@ -30,7 +30,7 @@ const StateForm = ({ open, setOpen, state } : FormProp) => {
 
     const { showToast } = useToastContext()
     
-    const [errorBag, setErrorBag] = useState({})
+    const [errorBag, setErrorBag] = useState<string | null>(null)
 
     const queryClient = useQueryClient()
 
@@ -84,12 +84,11 @@ const StateForm = ({ open, setOpen, state } : FormProp) => {
 
         if (feedback?.status === 'success') {
             queryClient.invalidateQueries({ queryKey: [STATES_QUERY_KEY] })
-            setErrorBag({})
+            setErrorBag(null)
             setOpen(false)
         } else {
-            console.log('error', feedback);
-            // setErrorBag(feedback?.data)
-            // showToast('Error Occurred', error?.response?.data?.message || 'Error', 'error', true, 10)
+            setErrorBag(feedback?.message || 'An error occurred')
+            showToast('Error Occurred', feedback?.message || 'An error occurred', 'error', true, 10)
         }
 
     }
@@ -101,10 +100,11 @@ const StateForm = ({ open, setOpen, state } : FormProp) => {
                     { state && state._id ? 'Edit State' : 'Add New State' }
                 </h3>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 pt-6">
+                    { errorBag && <div className="bg-red-100 text-red-700 p-3 rounded">{errorBag}</div> }
 
                     <div className="space-y-1.5 flex flex-col">
                         <label className="text-sm font-medium text-gray-800" htmlFor="name">Name</label>
-                        <input type="text" {...register("name",  { required: true })}  placeholder="Name" className="input w-full bg-white border border-gray-300" />
+                        <input type="text" {...register("name",  { required: true })} placeholder="Name" className="input w-full bg-white border border-gray-300" />
                         {errors.name && <span className="text-red-600 text-xs font-medium">Name is required</span>}
                     </div>
                     <div className="space-y-1.5 flex flex-col">
