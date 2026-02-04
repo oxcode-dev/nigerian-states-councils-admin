@@ -23,7 +23,7 @@ export const useFetchStates = () => {
     });
 
     const states = useMemo(() => {
-        return stateList?.data || [];
+        return stateList || [];
     }, [stateList]);
 
     return {
