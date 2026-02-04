@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"
 import axios from "axios";
 import { useState } from "react";
 import { useToastContext } from "../contexts/ToastContext";
+import { useLocalStorageToken } from "../hooks/useLocalStorageToken";
 
 type Inputs = {
   email: string
@@ -21,6 +22,7 @@ export default function Login() {
     } = useForm<Inputs>()
 
     const { showToast } = useToastContext()
+    const { setToken } = useLocalStorageToken()
 
     // const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
     const onSubmit = async(data: Inputs) => {
@@ -43,7 +45,8 @@ export default function Login() {
             }, config)
             // console.log(response.data);
 
-            localStorage.setItem('token', response.data.token)
+            // localStorage.setItem('token', response.data.token)
+            setToken(response.data.token);
 
             navigate('/')
 
