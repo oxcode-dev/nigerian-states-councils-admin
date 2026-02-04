@@ -5,6 +5,8 @@ import axios from "axios";
 import { useState } from "react";
 import { useToastContext } from "../contexts/ToastContext";
 import { useLocalStorageToken } from "../hooks/useLocalStorageToken";
+import { API_BASE_URL } from "../constants";
+
 
 type Inputs = {
   email: string
@@ -39,7 +41,7 @@ export default function Login() {
                 }
             };
 
-            const response = await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/auth/login`, {
+            const response = await axios.post(`${API_BASE_URL}/auth/login`, {
                 email: data.email,
                 password: data.password,
             }, config)

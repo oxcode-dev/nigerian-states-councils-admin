@@ -7,6 +7,7 @@ import Modal from '../components/Modal';
 import { API_BASE_URL, geoZones, STATES_QUERY_KEY } from '../constants';
 import { useToastContext } from '../contexts/ToastContext';
 import type { StateFormProp } from '../types';
+import { useLocalStorageToken } from '../hooks/useLocalStorageToken';
 
 
 type FormProp = {
@@ -18,6 +19,7 @@ type FormProp = {
 const StateForm = ({ open, setOpen, state } : FormProp) => {
 
     const { showToast } = useToastContext()
+    const { getToken } = useLocalStorageToken()
     
     const [errorBag, setErrorBag] = useState<string | null>(null)
 
@@ -49,13 +51,14 @@ const StateForm = ({ open, setOpen, state } : FormProp) => {
     }
 
     const handleForm = async (data: StateFormProp) => {
+        // return console.log(getToken(), 'token');
 
         const url = `${API_BASE_URL}/states${data._id ? '/' + data._id : ''}`
 
         const response = await fetch(url, {
             method: data._id ? 'PUT' : 'POST',
             headers: { 
-                // Authorization: `Bearer ${getToken.token}`,
+                Authorization: `Bearer ${getToken()}`,
                 'Content-Type': 'application/json',
                 'Accept': 'application/json', 
             },
