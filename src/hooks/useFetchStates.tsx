@@ -1,6 +1,7 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { get } from '../services';
 import { useMemo } from 'react';
+import { STATES_QUERY_KEY } from '../constants';
 
 export const useFetchStates = () => {
     async function fetchStates() {
@@ -16,7 +17,7 @@ export const useFetchStates = () => {
     }
 
     const { data: stateList, error, isLoading, isFetching } = useQuery({
-        queryKey: ["list_states"],
+        queryKey: [STATES_QUERY_KEY],
         queryFn: () => fetchStates(),
         placeholderData: keepPreviousData,
         staleTime: 10 * 60 * 1000,

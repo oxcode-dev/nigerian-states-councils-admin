@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react'
 import { useForm } from "react-hook-form"
 import Modal from '../components/Modal';
-import { geoZones } from '../constants';
+import { geoZones, STATES_QUERY_KEY } from '../constants';
 import { useToastContext } from '../contexts/ToastContext';
 
 type StateFormProp = {
@@ -80,15 +80,12 @@ const StateForm = ({ open, setOpen, state } : FormProp) => {
             }),
         })
 
-        // return console.log('response', response.json);
-
         const feedback = await response.json()
 
-        if (feedback?.success) {
-            queryClient.invalidateQueries({ queryKey: ['states'] })
+        if (feedback?.status === 'success') {
+            queryClient.invalidateQueries({ queryKey: [STATES_QUERY_KEY] })
             setErrorBag({})
             setOpen(false)
-            
         } else {
             console.log('error', feedback);
             // setErrorBag(feedback?.data)
