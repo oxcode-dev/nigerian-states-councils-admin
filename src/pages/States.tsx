@@ -2,6 +2,7 @@ import { PencilIcon, TrashIcon } from "@heroicons/react/20/solid";
 import Layout from "../layout";
 import { useFetchStates } from "../hooks/useFetchStates";
 import { Spinner } from "../components/Spinner";
+import StateForm from "../forms/StateForm";
 
 export default function States() {
     const { states, isFetching, error } = useFetchStates()
@@ -78,6 +79,8 @@ export default function States() {
                         </div>
                     </div>
                 </div>
+
+                <StateForm open={true} setOpen={() => {}} />
             </main>
 
         </Layout>
