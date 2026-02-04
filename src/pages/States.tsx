@@ -71,10 +71,10 @@ export default function States() {
                                                 </td>
                                                 <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                                     <div className="space-x-2">
-                                                        <button onClick={() => handleEdit(state)} className="w-6 h-6 bg-blue-600 text-white rounded p-1">
+                                                        <button onClick={() => handleEdit(state)} className="w-6 h-6 bg-blue-600 text-white rounded p-1 cursor-pointer">
                                                             <PencilIcon className="size-4" />
                                                         </button>
-                                                        <button className="w-6 h-6 bg-red-600 text-white rounded p-1">
+                                                        <button className="w-6 h-6 bg-red-600 text-white rounded p-1 cursor-pointer">
                                                             <TrashIcon className="size-4" />
                                                         </button>
                                                     </div>

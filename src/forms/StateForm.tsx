@@ -51,7 +51,6 @@ const StateForm = ({ open, setOpen, state } : FormProp) => {
     const handleForm = async (data: StateFormProp) => {
 
         const url = `${API_BASE_URL}/states${data._id ? '/' + data._id : ''}`
-        // return console.log('URL', url);
 
         const response = await fetch(url, {
             method: data._id ? 'PUT' : 'POST',
@@ -76,6 +75,7 @@ const StateForm = ({ open, setOpen, state } : FormProp) => {
         if (feedback?.status === 'success') {
             queryClient.invalidateQueries({ queryKey: [STATES_QUERY_KEY] })
             setErrorBag(null)
+            showToast('Success', feedback?.message || 'State updated successfully', 'success', true, 10)
             setOpen(false)
         } else {
             setErrorBag(feedback?.message || 'An error occurred')
