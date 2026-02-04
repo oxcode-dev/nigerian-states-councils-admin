@@ -5,6 +5,7 @@ import { Spinner } from "../components/Spinner";
 import StateForm from "../forms/StateForm";
 import { useState } from "react";
 import type { StateFormProp } from "../types";
+import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
 
 export default function States() {
     const { states, isFetching } = useFetchStates()
@@ -95,6 +96,11 @@ export default function States() {
                         state={selectedState}
                     />
                 }
+                <ConfirmDeleteModal 
+                    active={true} 
+                    message="Are you sure you want to delete this state?" 
+                    submitFn={() => console.log('Deleted')} onClose={() => console.log('Closed')}
+                />
             </main>
 
         </Layout>
