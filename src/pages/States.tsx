@@ -1,10 +1,11 @@
 import { PencilIcon, TrashIcon } from "@heroicons/react/20/solid";
 import Layout from "../layout";
 import { useFetchStates } from "../hooks/useFetchStates";
+import { Spinner } from "../components/Spinner";
 
 export default function States() {
-    const { states, isLoading, error } = useFetchStates()
-    console.log(states, isLoading, error);
+    const { states, isFetching, error } = useFetchStates()
+    console.log(states, isFetching, error);
 
     return (
         <Layout>
@@ -13,7 +14,10 @@ export default function States() {
                     <h2 className="text-2xl font-semibold text-slate-800">States</h2>
                     <button className="px-4 bg-green-700 text-white py-1.5 rounded">Add</button>
                 </div>
-                <div className="flex flex-col">
+
+                { !isFetching && <Spinner /> }
+
+                {/* <div className="flex flex-col">
                     <div className="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
                         <div className="py-2 inline-block min-w-full">
                             <div className="overflow-hidden">
@@ -30,7 +34,7 @@ export default function States() {
                                                 scope="col"
                                                 className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
                                             >
-                                                Category
+                                                Geo Zone
                                             </th>
                                             <th
                                                 scope="col"
@@ -71,7 +75,7 @@ export default function States() {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </main>
 
         </Layout>
