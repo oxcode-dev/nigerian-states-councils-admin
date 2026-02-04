@@ -55,20 +55,13 @@ const StateForm = ({ open, setOpen, state } : FormProp) => {
     }
 
     const handleForm = async (data: StateFormProp) => {
-        const getTokenResponse = await fetch('/api/fetch-token')
-
-        const getToken = await getTokenResponse.json()
-
-        if(getToken && !getToken?.token){
-            return alert('Unauthenticated User')
-        }
 
         const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/states${data._id ? '/' + data._id : ''}`
 
         const response = await fetch(url, {
             method: data._id ? 'PUT' : 'POST',
             headers: { 
-                Authorization: `Bearer ${getToken.token}`,
+                // Authorization: `Bearer ${getToken.token}`,
                 'Content-Type': 'application/json',
                 'Accept': 'application/json', 
             },
@@ -82,6 +75,8 @@ const StateForm = ({ open, setOpen, state } : FormProp) => {
                 creation_year: data?.creation_year,
             }),
         })
+
+        return console.log('response', response);
 
         const feedback = await response.json()
 
