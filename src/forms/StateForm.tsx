@@ -4,20 +4,9 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react'
 import { useForm } from "react-hook-form"
 import Modal from '../components/Modal';
-import { geoZones, STATES_QUERY_KEY } from '../constants';
+import { API_BASE_URL, geoZones, STATES_QUERY_KEY } from '../constants';
 import { useToastContext } from '../contexts/ToastContext';
-
-type StateFormProp = {
-    name: string
-    geo_zone: string
-    code: string
-    capital_city: string
-    slogan: string
-    description: string
-    creation_year: number
-    created_at: string
-    _id?: string | null
-};
+import type { StateFormProp } from '../types';
 
 
 type FormProp = {
@@ -60,7 +49,7 @@ const StateForm = ({ open, setOpen, state } : FormProp) => {
 
     const handleForm = async (data: StateFormProp) => {
 
-        const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/states${data._id ? '/' + data._id : ''}`
+        const url = `${API_BASE_URL}/states${data._id ? '/' + data._id : ''}`
 
         const response = await fetch(url, {
             method: data._id ? 'PUT' : 'POST',

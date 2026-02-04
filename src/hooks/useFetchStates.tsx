@@ -2,6 +2,7 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { get } from '../services';
 import { useMemo } from 'react';
 import { STATES_QUERY_KEY } from '../constants';
+import type { StateFormProp } from '../types';
 
 export const useFetchStates = () => {
     async function fetchStates() {
@@ -23,7 +24,7 @@ export const useFetchStates = () => {
         staleTime: 10 * 60 * 1000,
     });
 
-    const states = useMemo(() => {
+    const states: StateFormProp[] = useMemo(() => {
         return stateList || [];
     }, [stateList]);
 
