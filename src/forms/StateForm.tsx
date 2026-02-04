@@ -1,9 +1,9 @@
 'use client';
 
-import { Dialog,  DialogContent, DialogTitle, DialogTrigger } from '../components/Dialog';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react'
 import { useForm } from "react-hook-form"
+import Modal from '../components/Modal';
 
 type StateFormProp = {
     name: string
@@ -96,78 +96,66 @@ const StateForm = ({ open, setOpen, state } : FormProp) => {
     }
 
     return (
-        <div className="relative my-8 overflow-hidden">
-            <Dialog open={open} onOpenChange={setOpen}>
-                <DialogTrigger asChild>
-                    <button className="btn rounded-md bg-blue-500 text-white border border-blue-500 font-medium">
-                        {/* <PencilIcon className="size-4" /> */}
-                        <span>Create</span>
-                    </button>
-                </DialogTrigger>
-                <div className="overflow-auto">
-                    <DialogContent className="!bg-white">
-                        <DialogTitle>Create New Address</DialogTitle>
-                        
-                        <div>
-                            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 pt-6">
+        <Modal show={open} onClose={() => setOpen(false)} >
+            <div className="p-6">
+                <h3 className="text-lg font-medium text-gray-900 pb-4 border-b border-gray-200">
+                    { state && state._id ? 'Edit State' : 'Add New State' }
+                </h3>
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 pt-6">
 
-                                <div className="space-y-1.5 flex flex-col">
-                                    <label className="text-sm font-medium text-gray-800" htmlFor="name">Name</label>
-                                    <input type="text" {...register("name",  { required: true })}  placeholder="Name" className="input w-full bg-white border border-gray-300" />
-                                    {errors.name && <span className="text-red-600 text-xs font-medium">Name is required</span>}
-                                </div>
-                                <div className="space-y-1.5 flex flex-col">
-                                    <label className="text-sm font-medium text-gray-800" htmlFor="geo_zone">Geo Zone</label>
-                                    <input type="text" {...register("geo_zone",  { required: true })} placeholder="Geo Zone" className="input w-full bg-white border border-gray-300" />
-                                    {errors.geo_zone && <span className="text-red-600 text-xs font-medium">Geo Zone is required</span>}
-                                </div>
+                    <div className="space-y-1.5 flex flex-col">
+                        <label className="text-sm font-medium text-gray-800" htmlFor="name">Name</label>
+                        <input type="text" {...register("name",  { required: true })}  placeholder="Name" className="input w-full bg-white border border-gray-300" />
+                        {errors.name && <span className="text-red-600 text-xs font-medium">Name is required</span>}
+                    </div>
+                    <div className="space-y-1.5 flex flex-col">
+                        <label className="text-sm font-medium text-gray-800" htmlFor="geo_zone">Geo Zone</label>
+                        <input type="text" {...register("geo_zone",  { required: true })} placeholder="Geo Zone" className="input w-full bg-white border border-gray-300" />
+                        {errors.geo_zone && <span className="text-red-600 text-xs font-medium">Geo Zone is required</span>}
+                    </div>
 
-                                <div className="space-y-1.5 flex flex-col">
-                                    <label className="text-sm font-medium text-gray-800" htmlFor="code">Code</label>
-                                    <input type="text" {...register("code",  { required: true })} placeholder="Code" className="input w-full bg-white border border-gray-300" />
-                                    {errors.code && <span className="text-red-600 text-xs font-medium">Code is required</span>}
-                                </div>
+                    <div className="space-y-1.5 flex flex-col">
+                        <label className="text-sm font-medium text-gray-800" htmlFor="code">Code</label>
+                        <input type="text" {...register("code",  { required: true })} placeholder="Code" className="input w-full bg-white border border-gray-300" />
+                        {errors.code && <span className="text-red-600 text-xs font-medium">Code is required</span>}
+                    </div>
 
-                                <div className="space-y-1.5 flex flex-col">
-                                    <label className="text-sm font-medium text-gray-800" htmlFor="capital_city">Capital City</label>
-                                    <input id="capital_city" type="text" {...register("capital_city",  { required: true })} placeholder="Capital City" className="input w-full bg-white border border-gray-300" />
-                                    {errors.capital_city && <span className="text-red-600 text-xs font-medium">Capital City is required</span>}
-                                </div>
+                    <div className="space-y-1.5 flex flex-col">
+                        <label className="text-sm font-medium text-gray-800" htmlFor="capital_city">Capital City</label>
+                        <input id="capital_city" type="text" {...register("capital_city",  { required: true })} placeholder="Capital City" className="input w-full bg-white border border-gray-300" />
+                        {errors.capital_city && <span className="text-red-600 text-xs font-medium">Capital City is required</span>}
+                    </div>
 
-                                <div className="space-y-1.5 flex flex-col">
-                                    <label className="text-sm font-medium text-gray-800" htmlFor="slogan">Slogan</label>
-                                    <input id="slogan" type="text" {...register("slogan",  { required: true })} placeholder="Slogan" className="input w-full bg-white border border-gray-300" />
-                                    {errors.slogan && <span className="text-red-600 text-xs font-medium">Slogan is required</span>}
-                                </div>
+                    <div className="space-y-1.5 flex flex-col">
+                        <label className="text-sm font-medium text-gray-800" htmlFor="slogan">Slogan</label>
+                        <input id="slogan" type="text" {...register("slogan",  { required: true })} placeholder="Slogan" className="input w-full bg-white border border-gray-300" />
+                        {errors.slogan && <span className="text-red-600 text-xs font-medium">Slogan is required</span>}
+                    </div>
 
-                                <div className="space-y-1.5 flex flex-col">
-                                    <label className="text-sm font-medium text-gray-800" htmlFor="description">Description</label>
-                                    <input id="description" type="text" {...register("description",  { required: true })} placeholder="Description" className="input w-full bg-white border border-gray-300" />
-                                    {errors.description && <span className="text-red-600 text-xs font-medium">Description is required</span>}
-                                </div>
+                    <div className="space-y-1.5 flex flex-col">
+                        <label className="text-sm font-medium text-gray-800" htmlFor="description">Description</label>
+                        <input id="description" type="text" {...register("description",  { required: true })} placeholder="Description" className="input w-full bg-white border border-gray-300" />
+                        {errors.description && <span className="text-red-600 text-xs font-medium">Description is required</span>}
+                    </div>
 
-                                <div className="space-y-1.5 flex flex-col">
-                                    <label className="text-sm font-medium text-gray-800" htmlFor="creation_year">Creation Year</label>
-                                    <input id="creation_year" type="text" {...register("creation_year",  { required: true })} placeholder="Creation Year" className="input w-full bg-white border border-gray-300" />
-                                    {errors.creation_year && <span className="text-red-600 text-xs font-medium">Creation Year is required</span>}
-                                </div>
+                    <div className="space-y-1.5 flex flex-col">
+                        <label className="text-sm font-medium text-gray-800" htmlFor="creation_year">Creation Year</label>
+                        <input id="creation_year" type="text" {...register("creation_year",  { required: true })} placeholder="Creation Year" className="input w-full bg-white border border-gray-300" />
+                        {errors.creation_year && <span className="text-red-600 text-xs font-medium">Creation Year is required</span>}
+                    </div>
 
-                                <div className="py-2 pt-6 space-x-3">
-                                    <button onClick={() => setOpen(false)} type="button" className="btn btn-md bg-gray-200 border-gray-300 text-gray-500 rounded-md">
-                                        Cancel
-                                    </button>
-                                    <button disabled={mutation.isPending} type="submit" className="btn !bg-green-600 active:bg-green-600 border-green-600 text-white btn-md rounded-md">
-                                        { mutation.isPending && <span className="loading loading-spinner loading-sm text-white"></span> }
-                                        <span>{ mutation.isPending ? 'Loading...' : 'Save'}</span>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-
-                    </DialogContent>
-                </div>
-            </Dialog>
-        </div>
+                    <div className="py-2 pt-6 space-x-3">
+                        <button onClick={() => setOpen(false)} type="button" className="btn btn-md bg-gray-200 border-gray-300 text-gray-500 rounded-md">
+                            Cancel
+                        </button>
+                        <button disabled={mutation.isPending} type="submit" className="btn !bg-green-600 active:bg-green-600 border-green-600 text-white btn-md rounded-md">
+                            { mutation.isPending && <span className="loading loading-spinner loading-sm text-white"></span> }
+                            <span>{ mutation.isPending ? 'Loading...' : 'Save'}</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </Modal>
     )
 }
 
