@@ -1,13 +1,13 @@
 import React, { useEffect, useRef } from "react";
 
-type ConfirmDeleteProps = {
+type ConfirmDeleteModalProps = {
   active?: boolean;
   message?: string | null;
   submitFn: () => void;
   onClose: (value: false) => void;
 };
 
-const ConfirmDelete: React.FC<ConfirmDeleteProps> = ({
+const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({
   active = true,
   message = "Are you want to delete this item?",
   submitFn,
@@ -106,4 +106,4 @@ const ConfirmDelete: React.FC<ConfirmDeleteProps> = ({
   );
 };
 
-export default ConfirmDelete;
+export default ConfirmDeleteModal;
