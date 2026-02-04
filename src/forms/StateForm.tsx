@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react'
 import { useForm } from "react-hook-form"
 import Modal from '../components/Modal';
+import { geoZones } from '../constants';
 
 type StateFormProp = {
     name: string
@@ -76,7 +77,7 @@ const StateForm = ({ open, setOpen, state } : FormProp) => {
             }),
         })
 
-        return console.log('response', response);
+        return console.log('response', response.json);
 
         const feedback = await response.json()
 
@@ -105,7 +106,12 @@ const StateForm = ({ open, setOpen, state } : FormProp) => {
                     </div>
                     <div className="space-y-1.5 flex flex-col">
                         <label className="text-sm font-medium text-gray-800" htmlFor="geo_zone">Geo Zone</label>
-                        <input type="text" {...register("geo_zone",  { required: true })} placeholder="Geo Zone" className="input w-full bg-white border border-gray-300" />
+                        <select {...register("geo_zone",  { required: true })} className="select select-bordered w-full bg-white border-gray-300">
+                            <option value="">Select Geo Zone</option>
+                            {geoZones.map((zone) => (
+                                <option key={zone} value={zone}>{zone}</option>
+                            ))}
+                        </select>
                         {errors.geo_zone && <span className="text-red-600 text-xs font-medium">Geo Zone is required</span>}
                     </div>
 
@@ -129,13 +135,18 @@ const StateForm = ({ open, setOpen, state } : FormProp) => {
 
                     <div className="space-y-1.5 flex flex-col">
                         <label className="text-sm font-medium text-gray-800" htmlFor="description">Description</label>
-                        <input id="description" type="text" {...register("description",  { required: true })} placeholder="Description" className="input w-full bg-white border border-gray-300" />
+                        <textarea id="description" {...register("description",  { required: true })} placeholder="Description" className="textarea w-full bg-white border border-gray-300" />
                         {errors.description && <span className="text-red-600 text-xs font-medium">Description is required</span>}
                     </div>
 
                     <div className="space-y-1.5 flex flex-col">
                         <label className="text-sm font-medium text-gray-800" htmlFor="creation_year">Creation Year</label>
-                        <input id="creation_year" type="text" {...register("creation_year",  { required: true })} placeholder="Creation Year" className="input w-full bg-white border border-gray-300" />
+                        <select {...register("creation_year",  { required: true })} className="select select-bordered w-full bg-white border-gray-300">
+                            <option value="">Select Creation Year</option>
+                            {Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i).map((year) => (
+                                <option key={year} value={year}>{year}</option>
+                            ))}
+                        </select>
                         {errors.creation_year && <span className="text-red-600 text-xs font-medium">Creation Year is required</span>}
                     </div>
 
