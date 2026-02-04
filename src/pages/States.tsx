@@ -15,9 +15,9 @@ export default function States() {
                     <button className="px-4 bg-green-700 text-white py-1.5 rounded">Add</button>
                 </div>
 
-                { !isFetching && <Spinner /> }
+                { isFetching && <Spinner /> }
 
-                {/* <div className="flex flex-col">
+                <div className="flex flex-col">
                     <div className="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
                         <div className="py-2 inline-block min-w-full">
                             <div className="overflow-hidden">
@@ -49,33 +49,35 @@ export default function States() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr className="bg-gray-100 border-b border-gray-200">
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                Apple Stem Cell Serum
-                                            </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                Face Area
-                                            </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                10
-                                            </td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                <div className="space-x-2">
-                                                    <button className="w-6 h-6 bg-blue-600 text-white rounded p-1">
-                                                        <PencilIcon className="size-4" />
-                                                    </button>
-                                                    <button className="w-6 h-6 bg-red-600 text-white rounded p-1">
-                                                        <TrashIcon className="size-4" />
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        {states?.map((state) => (
+                                            <tr key={state._id} className="bg-gray-100 border-b border-gray-200">
+                                                <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                    {state.name}
+                                                </td>
+                                                <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                    {state.geoZone}
+                                                </td>
+                                                <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                    {state.price}
+                                                </td>
+                                                <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                    <div className="space-x-2">
+                                                        <button className="w-6 h-6 bg-blue-600 text-white rounded p-1">
+                                                            <PencilIcon className="size-4" />
+                                                        </button>
+                                                        <button className="w-6 h-6 bg-red-600 text-white rounded p-1">
+                                                            <TrashIcon className="size-4" />
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        ))}
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                </div> */}
+                </div>
             </main>
 
         </Layout>
