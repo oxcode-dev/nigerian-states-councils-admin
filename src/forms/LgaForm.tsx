@@ -53,7 +53,7 @@ const LgaForm = ({ open, setOpen, state } : FormProp) => {
     const handleForm = async (data: LgaFormProp) => {
         // return console.log(getToken(), 'token');
 
-        const url = `${API_BASE_URL}/states${data._id ? '/' + data._id : ''}`
+        const url = `${API_BASE_URL}/lgas${data._id ? '/' + data._id : ''}`
 
         const response = await fetch(url, {
             method: data._id ? 'PUT' : 'POST',

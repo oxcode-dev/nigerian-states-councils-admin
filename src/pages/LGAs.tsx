@@ -22,13 +22,18 @@ export default function LocalGovts() {
     
     const queryClient = useQueryClient()
 
-    const handleEdit = (state: LgaFormProp) => {
-        setSelectedLga(state)
+    const handleEdit = (lga: LgaFormProp) => {
+        setSelectedLga(lga)
         setIsFormOpen(true)
     }
 
-    const handleDelete = (state: LgaFormProp) => {
-        setSelectedLga(state)
+    const handleAdd = () => {
+        setSelectedLga(null)
+        setIsFormOpen(true)
+    }
+
+    const handleDelete = (lga: LgaFormProp) => {
+        setSelectedLga(lga)
         setIsDeleteModalOpen(true)
     }
 
@@ -75,7 +80,7 @@ export default function LocalGovts() {
             <main className="rounded-lg bg-white text-slate-500 px-4 py-4">
                 <div className="flex items-center justify-between px-2">
                     <h2 className="text-2xl font-semibold text-slate-800">Local Government Areas</h2>
-                    <button className="px-4 bg-green-700 text-white py-1.5 rounded">Add</button>
+                    <button onClick={() => handleAdd()} className="px-4 bg-green-700 text-white py-1.5 rounded">Add</button>
                 </div>
 
                 { isFetching && <Spinner /> }

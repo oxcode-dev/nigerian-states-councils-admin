@@ -27,6 +27,11 @@ export default function States() {
         setIsFormOpen(true)
     }
 
+    const handleAdd = () => {
+        setSelectedState(null)
+        setIsFormOpen(true)
+    }
+
     const handleDelete = (state: StateFormProp) => {
         setSelectedState(state)
         setIsDeleteModalOpen(true)
@@ -74,7 +79,7 @@ export default function States() {
             <main className="rounded-lg bg-white text-slate-500 px-4 py-4">
                 <div className="flex items-center justify-between px-2">
                     <h2 className="text-2xl font-semibold text-slate-800">States</h2>
-                    <button className="px-4 bg-green-700 text-white py-1.5 rounded">Add</button>
+                    <button onClick={() => handleAdd()} className="px-4 bg-green-700 text-white py-1.5 rounded">Add</button>
                 </div>
 
                 { isFetching && <Spinner /> }
