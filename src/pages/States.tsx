@@ -78,68 +78,69 @@ export default function States() {
                 </div>
 
                 { isFetching && <Spinner /> }
-
-                <div className="flex flex-col">
-                    <div className="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
-                        <div className="py-2 inline-block min-w-full">
-                            <div className="overflow-hidden">
-                                <table className="min-w-full">
-                                    <thead className="bg-white border-b border-gray-200">
-                                        <tr>
-                                            <th
-                                                scope="col"
-                                                className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
-                                            >
-                                                Name
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                className="text-sm font-medium text-gray-900 px-6 py-4 text-left hidden md:table-cell"
-                                            >
-                                                Geo Zone
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                className="text-sm font-medium text-gray-900 px-6 py-4 text-left hidden md:table-cell"
-                                            >
-                                                Capital City
-                                            </th>
-                                            <th
-                                                scope="col"
-                                                className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
-                                            />
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {states?.map((state) => (
-                                            <tr key={state._id} className="bg-gray-100 border-b border-gray-200">
-                                                <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                    {state.name}
-                                                </td>
-                                                <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap hidden md:table-cell">
-                                                    {state.geo_zone}
-                                                </td>
-                                                <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap hidden md:table-cell">
-                                                    {state.capital_city}
-                                                </td>
-                                                <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                    <div className="space-x-2">
-                                                        <button onClick={() => handleEdit(state)} className="w-6 h-6 bg-blue-600 text-white rounded p-1 cursor-pointer">
-                                                            <PencilIcon className="size-4" />
-                                                        </button>
-                                                        <button onClick={() => handleDelete(state)} className="w-6 h-6 bg-red-600 text-white rounded p-1 cursor-pointer">
-                                                            <TrashIcon className="size-4" />
-                                                        </button>
-                                                    </div>
-                                                </td>
+                { !isFetching && states?.length > 0 ? (
+                    <div className="flex flex-col">
+                        <div className="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
+                            <div className="py-2 inline-block min-w-full">
+                                <div className="overflow-hidden">
+                                    <table className="min-w-full">
+                                        <thead className="bg-white border-b border-gray-200">
+                                            <tr>
+                                                <th
+                                                    scope="col"
+                                                    className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                                >
+                                                    Name
+                                                </th>
+                                                <th
+                                                    scope="col"
+                                                    className="text-sm font-medium text-gray-900 px-6 py-4 text-left hidden md:table-cell"
+                                                >
+                                                    Geo Zone
+                                                </th>
+                                                <th
+                                                    scope="col"
+                                                    className="text-sm font-medium text-gray-900 px-6 py-4 text-left hidden md:table-cell"
+                                                >
+                                                    Capital City
+                                                </th>
+                                                <th
+                                                    scope="col"
+                                                    className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                                />
                                             </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            {states?.map((state) => (
+                                                <tr key={state._id} className="bg-gray-100 border-b border-gray-200">
+                                                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                        {state.name}
+                                                    </td>
+                                                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap hidden md:table-cell">
+                                                        {state.geo_zone}
+                                                    </td>
+                                                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap hidden md:table-cell">
+                                                        {state.capital_city}
+                                                    </td>
+                                                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                        <div className="space-x-2">
+                                                            <button onClick={() => handleEdit(state)} className="w-6 h-6 bg-blue-600 text-white rounded p-1 cursor-pointer">
+                                                                <PencilIcon className="size-4" />
+                                                            </button>
+                                                            <button onClick={() => handleDelete(state)} className="w-6 h-6 bg-red-600 text-white rounded p-1 cursor-pointer">
+                                                                <TrashIcon className="size-4" />
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                ): null}
 
                 { isFormOpen && 
                     <StateForm 
