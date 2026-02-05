@@ -25,3 +25,17 @@ export type LgaFormProp = {
     }
 };
 
+export type WardFormProp = {
+    name: string
+    state_id: string
+    code: string
+    capital_town: string
+    slogan: string
+    description: string
+    creation_year: number
+    created_at: string
+    _id?: string | null
+    state: {
+        name: string
+    }
+};
