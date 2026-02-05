@@ -48,7 +48,7 @@ export default function States() {
         const response = await fetch(url, {
             method: 'DELETE',
             headers: { 
-                // Authorization: `Bearer ${getToken()}`,
+                Authorization: `Bearer ${getToken()}`,
                 'Content-Type': 'application/json',
                 'Accept': 'application/json', 
             },

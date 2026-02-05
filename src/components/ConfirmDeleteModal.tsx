@@ -51,14 +51,14 @@ const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({
 
             <div className="mt-2 space-x-2">
               <button
-                className="p-2 py-1 border border-white rounded-md text-sm bg-white text-red-600"
+                className="p-2 py-1 border border-white rounded-md text-sm bg-white text-red-600 cursor-pointer"
                 onClick={submitFn}
               >
                 Yes
               </button>
 
               <button
-                className="p-2 py-1 border border-white rounded-md text-sm"
+                className="p-2 py-1 border border-white rounded-md text-sm cursor-pointer"
                 onClick={() => onClose(false)}
               >
                 No
