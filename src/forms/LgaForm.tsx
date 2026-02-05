@@ -18,6 +18,7 @@ type FormProp = {
 }
 
 const LgaForm = ({ open, setOpen, state } : FormProp) => {
+    console.log('data: ', state)
 
     const { showToast } = useToastContext()
     const { getToken } = useLocalStorageToken()
