@@ -9,6 +9,7 @@ import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
 import { API_BASE_URL, STATES_QUERY_KEY } from "../constants";
 import { useToastContext } from "../contexts/ToastContext";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useLocalStorageToken } from "../hooks/useLocalStorageToken";
 
 export default function States() {
     const { states, isFetching } = useFetchStates()
@@ -17,6 +18,7 @@ export default function States() {
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
     const { showToast } = useToastContext()
+    const { getToken } = useLocalStorageToken()
     
     const queryClient = useQueryClient()
 
@@ -46,7 +48,7 @@ export default function States() {
         const response = await fetch(url, {
             method: 'DELETE',
             headers: { 
-                // Authorization: `Bearer ${getToken.token}`,
+                // Authorization: `Bearer ${getToken()}`,
                 'Content-Type': 'application/json',
                 'Accept': 'application/json', 
             },
