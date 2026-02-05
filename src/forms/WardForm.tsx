@@ -4,19 +4,19 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react'
 import { useForm } from "react-hook-form"
 import Modal from '../components/Modal';
-import { API_BASE_URL, geoZones, STATES_QUERY_KEY } from '../constants';
+import { API_BASE_URL, geoZones, WARDS_QUERY_KEY } from '../constants';
 import { useToastContext } from '../contexts/ToastContext';
-import type { StateFormProp } from '../types';
+import type { WardFormProp } from '../types';
 import { useLocalStorageToken } from '../hooks/useLocalStorageToken';
 
 
 type FormProp = {
-    state: StateFormProp | null;
+    state: WardFormProp | null;
     open: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const StateForm = ({ open, setOpen, state } : FormProp) => {
+const WardForm = ({ open, setOpen, state } : FormProp) => {
 
     const { showToast } = useToastContext()
     const { getToken } = useLocalStorageToken()
@@ -26,19 +26,19 @@ const StateForm = ({ open, setOpen, state } : FormProp) => {
     const queryClient = useQueryClient()
 
     const mutation = useMutation({
-        mutationFn: (data: StateFormProp) => handleForm(data)
+        mutationFn: (data: WardFormProp) => handleForm(data)
     })
 
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<StateFormProp>({
+    } = useForm<WardFormProp>({
         defaultValues: {
             name: state?.name || '',
-            geo_zone: state?.geo_zone || '',
+            state_id: state?.state_id || '',
             code: state?.code || '',
-            capital_city: state?.capital_city || '',
+            capital_town: state?.capital_town || '',
             slogan: state?.slogan || '',
             description: state?.description || '',
             creation_year: state?.creation_year || 0,
@@ -46,14 +46,14 @@ const StateForm = ({ open, setOpen, state } : FormProp) => {
         }
     });
 
-    const onSubmit = async(data: StateFormProp) => {
+    const onSubmit = async(data: WardFormProp) => {
         mutation.mutate(data)
     }
 
-    const handleForm = async (data: StateFormProp) => {
+    const handleForm = async (data: WardFormProp) => {
         // return console.log(getToken(), 'token');
 
-        const url = `${API_BASE_URL}/states${data._id ? '/' + data._id : ''}`
+        const url = `${API_BASE_URL}/wards${data._id ? '/' + data._id : ''}`
 
         const response = await fetch(url, {
             method: data._id ? 'PUT' : 'POST',
@@ -64,9 +64,9 @@ const StateForm = ({ open, setOpen, state } : FormProp) => {
             },
             body: JSON.stringify({ 
                 name: data?.name,
-                geo_zone: data?.geo_zone,
+                state_id: data?.state_id,
                 code: data?.code,
-                capital_city: data?.capital_city,
+                capital_town: data?.capital_town,
                 slogan: data?.slogan,
                 description: data?.description,
                 creation_year: data?.creation_year,
@@ -76,7 +76,7 @@ const StateForm = ({ open, setOpen, state } : FormProp) => {
         const feedback = await response.json()
 
         if (feedback?.status === 'success') {
-            queryClient.invalidateQueries({ queryKey: [STATES_QUERY_KEY] })
+            queryClient.invalidateQueries({ queryKey: [WARDS_QUERY_KEY] })
             setErrorBag(null)
             showToast('Success', feedback?.message || 'State updated successfully', 'success', true, 10)
             setOpen(false)
@@ -102,14 +102,14 @@ const StateForm = ({ open, setOpen, state } : FormProp) => {
                         {errors.name && <span className="text-red-600 text-xs font-medium">Name is required</span>}
                     </div>
                     <div className="space-y-1.5 flex flex-col">
-                        <label className="text-sm font-medium text-gray-800" htmlFor="geo_zone">Geo Zone</label>
-                        <select {...register("geo_zone",  { required: true })} className="select select-bordered w-full bg-white border-gray-300">
+                        <label className="text-sm font-medium text-gray-800" htmlFor="state_id">Geo Zone</label>
+                        <select {...register("state_id",  { required: true })} className="select select-bordered w-full bg-white border-gray-300">
                             <option value="">Select Geo Zone</option>
                             {geoZones.map((zone) => (
                                 <option key={zone} value={zone}>{zone}</option>
                             ))}
                         </select>
-                        {errors.geo_zone && <span className="text-red-600 text-xs font-medium">Geo Zone is required</span>}
+                        {errors.state_id && <span className="text-red-600 text-xs font-medium">Geo Zone is required</span>}
                     </div>
 
                     <div className="space-y-1.5 flex flex-col">
@@ -119,9 +119,9 @@ const StateForm = ({ open, setOpen, state } : FormProp) => {
                     </div>
 
                     <div className="space-y-1.5 flex flex-col">
-                        <label className="text-sm font-medium text-gray-800" htmlFor="capital_city">Capital City</label>
-                        <input id="capital_city" type="text" {...register("capital_city",  { required: true })} placeholder="Capital City" className="input w-full bg-white border border-gray-300" />
-                        {errors.capital_city && <span className="text-red-600 text-xs font-medium">Capital City is required</span>}
+                        <label className="text-sm font-medium text-gray-800" htmlFor="capital_town">Capital City</label>
+                        <input id="capital_town" type="text" {...register("capital_town",  { required: true })} placeholder="Capital City" className="input w-full bg-white border border-gray-300" />
+                        {errors.capital_town && <span className="text-red-600 text-xs font-medium">Capital City is required</span>}
                     </div>
 
                     <div className="space-y-1.5 flex flex-col">
@@ -162,4 +162,4 @@ const StateForm = ({ open, setOpen, state } : FormProp) => {
     )
 }
 
-export default StateForm
+export default WardForm
