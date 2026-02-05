@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react'
 import { useForm } from "react-hook-form"
 import Modal from '../components/Modal';
-import { API_BASE_URL, geoZones, LGAS_QUERY_KEY } from '../constants';
+import { API_BASE_URL, LGAS_QUERY_KEY } from '../constants';
 import { useToastContext } from '../contexts/ToastContext';
 import type { LgaFormProp } from '../types';
 import { useLocalStorageToken } from '../hooks/useLocalStorageToken';
