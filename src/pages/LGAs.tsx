@@ -123,7 +123,7 @@ export default function LocalGovts() {
                                                         {lga.name}
                                                     </td>
                                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap hidden md:table-cell">
-                                                        {lga.state_id}
+                                                        {lga.state?.name || 'Unknown State'}
                                                     </td>
                                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap hidden md:table-cell">
                                                         {lga.capital_town}

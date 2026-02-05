@@ -8,6 +8,7 @@ import { API_BASE_URL, geoZones, LGAS_QUERY_KEY } from '../constants';
 import { useToastContext } from '../contexts/ToastContext';
 import type { LgaFormProp } from '../types';
 import { useLocalStorageToken } from '../hooks/useLocalStorageToken';
+import { useFetchStates } from '../hooks/useFetchStates';
 
 
 type FormProp = {
@@ -20,7 +21,8 @@ const LgaForm = ({ open, setOpen, state } : FormProp) => {
 
     const { showToast } = useToastContext()
     const { getToken } = useLocalStorageToken()
-    
+    const { states } = useFetchStates()
+
     const [errorBag, setErrorBag] = useState<string | null>(null)
 
     const queryClient = useQueryClient()
@@ -105,8 +107,8 @@ const LgaForm = ({ open, setOpen, state } : FormProp) => {
                         <label className="text-sm font-medium text-gray-800" htmlFor="state_id">State</label>
                         <select {...register("state_id",  { required: true })} className="select select-bordered w-full bg-white border-gray-300">
                             <option value="">Select State</option>
-                            {geoZones.map((zone) => (
-                                <option key={zone} value={zone}>{zone}</option>
+                            {states.map((state) => (
+                                <option key={state._id} value={state._id}>{state.name}</option>
                             ))}
                         </select>
                         {errors.state_id && <span className="text-red-600 text-xs font-medium">State is required</span>}

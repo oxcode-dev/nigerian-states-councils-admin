@@ -20,6 +20,8 @@ export type LgaFormProp = {
     creation_year: number
     created_at: string
     _id?: string | null
-    // state: string
+    state: {
+        name: string
+    }
 };
 
