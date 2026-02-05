@@ -12,12 +12,14 @@ export type StateFormProp = {
 
 export type LgaFormProp = {
     name: string
-    geo_zone: string
+    state_id: string
     code: string
-    capital_city: string
+    capital_town: string
     slogan: string
     description: string
     creation_year: number
     created_at: string
     _id?: string | null
+    // state: string
 };
+
