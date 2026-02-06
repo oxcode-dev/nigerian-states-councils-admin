@@ -12,11 +12,11 @@ export const useFetchStates = () => {
     
         const response = await get(url)
 
-        if (!response.ok) {
-            throw new Error("Failed to fetch posts");
+        if (!response.status || response.status !== 201) {
+            throw new Error("Failed to fetch states");
         }
 
-        return response.json();
+        return response?.data;
     }
 
     const { data: stateList, error, isLoading, isFetching } = useQuery({

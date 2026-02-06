@@ -1,5 +1,7 @@
+import axios from "axios";
+
 export async function get(url: string, token: string = '') {
-    const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}${url}`, {
+    const res = await axios(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}${url}`, {
         headers: { 
             Authorization: `${token ? 'Bearer ' + token : ''}`,
             'Content-Type': 'application/json',
@@ -7,7 +9,7 @@ export async function get(url: string, token: string = '') {
         },
     });
 
-    return await res//.json();
+    return res
 }
 
 export async function post(url: string, data={}, token: string = '') {

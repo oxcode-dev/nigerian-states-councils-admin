@@ -12,11 +12,11 @@ export const useFetchLocalGovt = () => {
     
         const response = await get(url)
 
-        if (!response.ok) {
+        if (!response.status || response.status !== 201) {
             throw new Error("Failed to fetch local governments");
         }
 
-        return response.json();
+        return response?.data;
     }
 
     const { data: lgasList, error, isLoading, isFetching } = useQuery({
