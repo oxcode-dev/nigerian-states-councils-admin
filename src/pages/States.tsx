@@ -1,4 +1,4 @@
-import { PencilIcon, TrashIcon } from "@heroicons/react/20/solid";
+import { ChevronLeftIcon, ChevronRightIcon, PencilIcon, TrashIcon } from "@heroicons/react/20/solid";
 import Layout from "../layout";
 import { useFetchStates } from "../hooks/useFetchStates";
 import { Spinner } from "../components/Spinner";
@@ -12,7 +12,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocalStorageToken } from "../hooks/useLocalStorageToken";
 
 export default function States() {
-    const { states, isFetching } = useFetchStates()
+    const { states, isFetching, setPage, metaData } = useFetchStates()
     const [selectedState, setSelectedState] = useState<StateFormProp | null>(null)
     const [isFormOpen, setIsFormOpen] = useState(false) 
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
@@ -143,7 +143,7 @@ export default function States() {
                                     </table>
                                 </div>
                             </div>
-                            
+
                             <div className="w-full mx-auto flex justify-center my-4 mt-6">
                                 <div className="join">
                                     <button 
