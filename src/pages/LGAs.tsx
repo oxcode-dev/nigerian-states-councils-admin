@@ -1,4 +1,4 @@
-import { PencilIcon, TrashIcon } from "@heroicons/react/20/solid";
+import { ChevronLeftIcon, ChevronRightIcon, PencilIcon, TrashIcon } from "@heroicons/react/20/solid";
 import Layout from "../layout";
 import { Spinner } from "../components/Spinner";
 import { useFetchLocalGovt } from "../hooks/useFetchLocalGovt";
@@ -145,6 +145,19 @@ export default function LocalGovts() {
                                 </div>
                             </div>
                             <pre>{JSON.stringify(metaData, null, 2)}</pre>
+                            <div className="w-full mx-auto flex justify-center mb-4">
+                                <div className="join">
+                                    <button disabled={1 === 1} className="join-item btn bg-gray-200 text-gray-500 border border-gray-200 disabled:opacity-50">
+                                        <ChevronLeftIcon className="size-6" />
+                                    </button>
+                                    <div className="join-item btn bg-gray-200 text-gray-500 border border-gray-200">
+                                        Page 1
+                                    </div>
+                                    <button className="join-item btn bg-gray-200 text-gray-500 border border-gray-200">
+                                        <ChevronRightIcon className="size-6" />
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 ): null}

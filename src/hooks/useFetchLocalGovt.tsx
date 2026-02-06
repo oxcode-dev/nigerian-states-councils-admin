@@ -1,12 +1,14 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { get } from '../services';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { LGAS_QUERY_KEY } from '../constants';
 import type { LgaFormProp, LgaPaginationProp } from '../types';
 
 export const useFetchLocalGovt = () => {
+    const [page, setPage] = useState(1);
+
     async function fetchLocalGovt() {
-        const url = '/lgas';
+        const url = `/lgas?page=${page}`;
     
         const response = await get(url)
 
@@ -35,6 +37,7 @@ export const useFetchLocalGovt = () => {
     return {
         lgas,
         metaData,
+        setPage,
         error,
         isFetching,
         isLoading,
