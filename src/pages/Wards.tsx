@@ -12,7 +12,7 @@ import WardForm from "../forms/WardForm";
 import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
 
 export default function Wards() {
-    const { wards, isFetching } = useFetchWards()
+    const { wards,metaData, isFetching } = useFetchWards()
     const [selectedWard, setSelectedWard] = useState<WardFormProp | null>(null)
     const [isFormOpen, setIsFormOpen] = useState(false) 
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
@@ -143,6 +143,8 @@ export default function Wards() {
                                 </div>
                             </div>
                         </div>
+
+                        <pre>{JSON.stringify(metaData, null, 2)}</pre>
                     </div>
                 ): null}
 
