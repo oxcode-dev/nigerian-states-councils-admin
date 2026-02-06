@@ -52,8 +52,6 @@ export default function LocalGovts() {
         
         const response = deleteRequest(url, getToken())
 
-        // console.log(response, 'Delete')
-
         return response.then((feedback) => {
             if (feedback?.status === 201) {
                 setIsDeleteModalOpen(false)
