@@ -143,6 +143,28 @@ export default function States() {
                                     </table>
                                 </div>
                             </div>
+                            
+                            <div className="w-full mx-auto flex justify-center my-4 mt-6">
+                                <div className="join">
+                                    <button 
+                                        disabled={metaData?.page === 1} 
+                                        onClick={() => setPage(metaData?.page - 1)} 
+                                        className="join-item btn bg-gray-200 text-gray-500 border border-gray-200 disabled:opacity-50"
+                                    >
+                                        <ChevronLeftIcon className="size-6" />
+                                    </button>
+                                    <div className="join-item font-light btn bg-gray-200 text-gray-500 border border-gray-200">
+                                        Page <b className="font-bold text-md">{metaData?.page || 0}</b> of {metaData?.totalPages || 0}
+                                    </div>
+                                    <button 
+                                        disabled={metaData?.page === metaData?.totalPages}
+                                        onClick={() => setPage(1 + metaData?.page || 0)} 
+                                        className="join-item btn bg-gray-200 text-gray-500 border border-gray-200 disabled:opacity-50"
+                                    >
+                                        <ChevronRightIcon className="size-6" />
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 ): null}
