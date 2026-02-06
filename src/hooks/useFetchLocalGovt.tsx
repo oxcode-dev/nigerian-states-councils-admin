@@ -20,7 +20,7 @@ export const useFetchLocalGovt = () => {
     }
 
     const { data: lgasList, error, isLoading, isFetching } = useQuery({
-        queryKey: [LGAS_QUERY_KEY],
+        queryKey: [LGAS_QUERY_KEY, page],
         queryFn: () => fetchLocalGovt(),
         placeholderData: keepPreviousData,
         staleTime: 10 * 60 * 1000,

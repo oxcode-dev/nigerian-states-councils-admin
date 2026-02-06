@@ -12,7 +12,7 @@ import LgaForm from "../forms/LgaForm";
 import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
 
 export default function LocalGovts() {
-    const { isFetching, lgas, metaData } = useFetchLocalGovt();
+    const { isFetching, lgas, metaData, setPage } = useFetchLocalGovt();
     const [selectedLga, setSelectedLga] = useState<LgaFormProp | null>(null)
     const [isFormOpen, setIsFormOpen] = useState(false) 
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
@@ -153,7 +153,7 @@ export default function LocalGovts() {
                                     <div className="join-item btn bg-gray-200 text-gray-500 border border-gray-200">
                                         Page 1
                                     </div>
-                                    <button className="join-item btn bg-gray-200 text-gray-500 border border-gray-200">
+                                    <button onClick={() => setPage(1 + metaData?.page || 0)} className="join-item btn bg-gray-200 text-gray-500 border border-gray-200">
                                         <ChevronRightIcon className="size-6" />
                                     </button>
                                 </div>
