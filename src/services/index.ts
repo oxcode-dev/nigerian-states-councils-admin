@@ -53,24 +53,22 @@ export async function put(url: string, data={}, token: string | null = '') {
     });
 
     if (!res.status || res.status !== 201) {
-        throw new Error("Failed to post data");
+        throw new Error("Failed to update data");
     }
     return res;
 }
 
 export async function deleteRequest(url: string, token: string | null = '') {
-    const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}${url}`, {
-        method: 'DELETE',
-        headers: { 
+    const res = await axios.delete(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}${url}`, {
+        headers: {
             Authorization: `${token ? 'Bearer ' + token : ''}`,
             'Content-Type': 'application/json',
             'Accept': 'application/json',
         },
     });
 
-    if (!res.ok) {
-        throw new Error("Failed to fetch posts");
-        // console.log("Failed to fetch posts");
+    if (!res.status || res.status !== 201) {
+        throw new Error("Failed to delete data");
     }
-    return res//.json();
+    return res;
 }

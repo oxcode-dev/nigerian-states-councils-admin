@@ -7,9 +7,10 @@ import { useState } from "react";
 import { useToastContext } from "../contexts/ToastContext";
 import { useLocalStorageToken } from "../hooks/useLocalStorageToken";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { API_BASE_URL, LGAS_QUERY_KEY } from "../constants";
+import { LGAS_QUERY_KEY } from "../constants";
 import LgaForm from "../forms/LgaForm";
 import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
+import { deleteRequest } from "../services";
 
 export default function LocalGovts() {
     const { isFetching, lgas, metaData, setPage } = useFetchLocalGovt();
@@ -46,34 +47,28 @@ export default function LocalGovts() {
     }
 
     const handleDeleteConfirm = async() => {
-        console.log('Delete confirmed for', selectedLga);
 
-        const url = `${API_BASE_URL}/lgas/${selectedLga?._id}`
+        const url = `/lgas/${selectedLga?._id}`
         
-        const response = await fetch(url, {
-            method: 'DELETE',
-            headers: { 
-                Authorization: `Bearer ${getToken()}`,
-                'Content-Type': 'application/json',
-                'Accept': 'application/json', 
-            },
-            body: JSON.stringify({ 
-                _id: selectedLga?._id,
-            }),
+        const response = deleteRequest(url, getToken())
+
+        // console.log(response, 'Delete')
+
+        return response.then((feedback) => {
+            if (feedback?.status === 201) {
+                setIsDeleteModalOpen(false)
+                queryClient.invalidateQueries({ queryKey: [LGAS_QUERY_KEY] })
+                showToast(
+                    'Success', 
+                    feedback?.data?.message || `Local Govt deleted successfully`,
+                    'success', true, 10
+                )
+            }
+        }).catch((error) => {
+            setIsDeleteModalOpen(false)
+            showToast('Error Occurred', error?.response?.data?.message || 'An error occurred', 'error', true, 10)
         })
-
-        const feedback = await response.json()
-
-        if (feedback?.status === 'success') {
-            queryClient.invalidateQueries({ queryKey: [LGAS_QUERY_KEY] })
-            showToast('Success', feedback?.message || 'LGA deleted successfully', 'success', true, 10)
-            setIsDeleteModalOpen(false)
-        } else {
-            showToast('Error Occurred', feedback?.message || 'An error occurred', 'error', true, 10)
-            setIsDeleteModalOpen(false)
-        }
     }
-
 
     return (
         <Layout>

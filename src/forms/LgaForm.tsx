@@ -77,7 +77,7 @@ const LgaForm = ({ open, setOpen, state } : FormProp) => {
                 setErrorBag(null)
                 showToast(
                     'Success', 
-                    feedback?.data?.message || `State ${data._id ? 'updated' : 'created'} successfully`,
+                    feedback?.data?.message || `Local Govt ${data._id ? 'updated' : 'created'} successfully`,
                     'success', true, 10
                 )
                 setOpen(false)
