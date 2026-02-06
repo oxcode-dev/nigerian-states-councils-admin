@@ -4,11 +4,12 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react'
 import { useForm } from "react-hook-form"
 import Modal from '../components/Modal';
-import { API_BASE_URL, LGAS_QUERY_KEY } from '../constants';
+import { LGAS_QUERY_KEY } from '../constants';
 import { useToastContext } from '../contexts/ToastContext';
 import type { LgaFormProp } from '../types';
 import { useLocalStorageToken } from '../hooks/useLocalStorageToken';
 import { useFetchStates } from '../hooks/useFetchStates';
+import { post, put } from '../services';
 
 
 type FormProp = {
@@ -18,7 +19,6 @@ type FormProp = {
 }
 
 const LgaForm = ({ open, setOpen, state } : FormProp) => {
-    console.log('data: ', state)
 
     const { showToast } = useToastContext()
     const { getToken } = useLocalStorageToken()
@@ -54,40 +54,39 @@ const LgaForm = ({ open, setOpen, state } : FormProp) => {
     }
 
     const handleForm = async (data: LgaFormProp) => {
-        // return console.log(getToken(), 'token');
 
-        const url = `${API_BASE_URL}/lgas${data._id ? '/' + data._id : ''}`
+        const url = `/lgas${data._id ? '/' + data._id : ''}`
 
-        const response = await fetch(url, {
-            method: data._id ? 'PUT' : 'POST',
-            headers: { 
-                Authorization: `Bearer ${getToken()}`,
-                'Content-Type': 'application/json',
-                'Accept': 'application/json', 
-            },
-            body: JSON.stringify({ 
-                name: data?.name,
-                state_id: data?.state_id,
-                code: data?.code,
-                capital_town: data?.capital_town,
-                slogan: data?.slogan,
-                description: data?.description,
-                creation_year: data?.creation_year,
-            }),
-        })
-
-        const feedback = await response.json()
-
-        if (feedback?.status === 'success') {
-            queryClient.invalidateQueries({ queryKey: [LGAS_QUERY_KEY] })
-            setErrorBag(null)
-            showToast('Success', feedback?.message || 'State updated successfully', 'success', true, 10)
-            setOpen(false)
-        } else {
-            setErrorBag(feedback?.message || 'An error occurred')
-            showToast('Error Occurred', feedback?.message || 'An error occurred', 'error', true, 10)
+        const formData = {
+            name: data?.name,
+            state_id: data?.state_id,
+            code: data?.code,
+            capital_town: data?.capital_town,
+            slogan: data?.slogan,
+            description: data?.description,
+            creation_year: data?.creation_year,
         }
 
+        const response = data._id ? 
+            put(url, formData , getToken()) :
+            post(url, formData , getToken());
+
+        return response.then((feedback) => {
+            if (feedback?.status === 201) {
+                queryClient.invalidateQueries({ queryKey: [LGAS_QUERY_KEY] })
+                setErrorBag(null)
+                showToast(
+                    'Success', 
+                    feedback?.data?.message || `State ${data._id ? 'updated' : 'created'} successfully`,
+                    'success', true, 10
+                )
+                setOpen(false)
+            }
+        }).catch((error) => {
+            console.log(error.response, 'new error')
+            setErrorBag(error?.response?.data?.message || 'An error occurred')
+            showToast('Error Occurred', error?.response?.data?.message || 'An error occurred', 'error', true, 10)
+        })
     }
 
     return (

@@ -12,62 +12,53 @@ export async function get(url: string, token: string = '') {
     return res
 }
 
-export async function post(url: string, data={}, token: string = '') {
-    const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}${url}`, {
-        method: 'POST',
+export async function post(url: string, data={}, token: string | null = '') {
+    const res = await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}${url}`, data, {
         headers: {
             Authorization: `${token ? 'Bearer ' + token : ''}`,
             'Content-Type': 'application/json',
             'Accept': 'application/json',
         },
-        body: JSON.stringify(data),
+        // body: JSON.stringify(data),
     });
 
-    if (!res.ok) {
-        throw new Error("Failed to fetch posts");
-        // console.log("Failed to fetch posts");
+    if (!res.status || res.status !== 201) {
+        throw new Error("Failed to post data");
     }
     return res//.json();
 }
 
-export async function postFile(url: string, data={}, token: string = '') {
-    const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}${url}`, {
-        method: 'POST',
-        headers: { 
-            Authorization: `${token ? 'Bearer ' + token : ''}`,
-            'Accept': 'application/json',
-            // Accept: '*/*',
-            'Content-Type' : 'multipart/form-data',
-        },
-        body: JSON.stringify(data),
-    });
-
-    if (!res.ok) {
-        throw new Error("Failed to fetch posts");
-        // console.log("Failed to fetch posts");
-    }
-    return res//.json();
-}
-
-export async function put(url: string, data={}, token: string = '') {
-    const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}${url}`, {
-        method: 'PUT',
-        headers: { 
+export async function postFile(url: string, data={}, token: string | null = '') {
+    const res = await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}${url}`, data, {
+        headers: {
             Authorization: `${token ? 'Bearer ' + token : ''}`,
             'Content-Type': 'application/json',
             'Accept': 'application/json',
         },
-        body: JSON.stringify(data),
     });
 
-    if (!res.ok) {
-        throw new Error("Failed to fetch posts");
-        // console.log("Failed to fetch posts");
+    if (!res.status || res.status !== 201) {
+        throw new Error("Failed to post data");
     }
-    return res//.json();
+    return res;
 }
 
-export async function deleteRequest(url: string, token: string = '') {
+export async function put(url: string, data={}, token: string | null = '') {
+    const res = await axios.put(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}${url}`, data, {
+        headers: {
+            Authorization: `${token ? 'Bearer ' + token : ''}`,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+    });
+
+    if (!res.status || res.status !== 201) {
+        throw new Error("Failed to post data");
+    }
+    return res;
+}
+
+export async function deleteRequest(url: string, token: string | null = '') {
     const res = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}${url}`, {
         method: 'DELETE',
         headers: { 
