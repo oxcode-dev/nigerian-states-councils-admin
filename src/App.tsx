@@ -7,6 +7,7 @@ import PublicRoute from "./components/PublicRoutes"
 import Home from "./pages/Index"
 import States from "./pages/States"
 import LocalGovts from "./pages/LGAs"
+import Setting from "./pages/Settings"
 // import Wards from "./pages/Wards"
 
 function App() {
@@ -48,6 +49,7 @@ const AdminRoutes = () => {
       <Route path="/states" element={<States />} />
       <Route path="/local-governments" element={<LocalGovts />} />
       {/* <Route path="/wards" element={<Wards />} /> */}
+      <Route path="/settings" element={<Setting />} />
     </Routes>
   )
 }

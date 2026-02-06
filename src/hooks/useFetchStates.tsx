@@ -7,6 +7,18 @@ import type { StateFormProp, StatePaginationProp } from '../types';
 export const useFetchStates = () => {
     const [page, setPage] = useState(1);
 
+    // async function fetchAllStates() {
+    //     const url = `/states`;
+    
+    //     const response = await get(url)
+
+    //     if (!response.status || response.status !== 201) {
+    //         throw new Error("Failed to fetch states");
+    //     }
+
+    //     return response?.data;
+    // }
+
     async function fetchStates() {
         const url = `/states?page=${page}`;
     
