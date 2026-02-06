@@ -39,3 +39,13 @@ export type WardFormProp = {
         name: string
     }
 };
+
+export type WardPaginationProp = {
+    wards: WardFormProp[];
+    metadata: {
+        page: number
+        limit: number
+        totalCount: number
+        totalPages:  number
+    }
+};

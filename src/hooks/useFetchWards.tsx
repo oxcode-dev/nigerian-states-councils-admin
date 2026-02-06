@@ -2,7 +2,7 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { get } from '../services';
 import { useMemo } from 'react';
 import { WARDS_QUERY_KEY } from '../constants';
-import type { WardFormProp } from '../types';
+import type { WardFormProp, WardPaginationProp } from '../types';
 
 export const useFetchWards = () => {
     async function fetchWards() {
@@ -25,11 +25,16 @@ export const useFetchWards = () => {
     });
 
     const wards: WardFormProp[] = useMemo(() => {
-        return wardList || [];
+        return (wardList as WardPaginationProp)?.wards || [];
+    }, [wardList]);
+
+    const metaData = useMemo(() => {
+        return (wardList as WardPaginationProp)?.metadata || null;
     }, [wardList]);
 
     return {
         wards,
+        metaData,
         error,
         isFetching,
         isLoading,
