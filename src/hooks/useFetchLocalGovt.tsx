@@ -25,7 +25,7 @@ export const useFetchLocalGovt = () => {
     });
 
     const lgas: LgaFormProp[] = useMemo(() => {
-        return lgasList || [];
+        return (lgasList as LgaPaginationProp)?.lgas || [];
     }, [lgasList]);
 
     const metaData = useMemo(() => {

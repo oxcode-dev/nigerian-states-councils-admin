@@ -12,7 +12,7 @@ import LgaForm from "../forms/LgaForm";
 import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
 
 export default function LocalGovts() {
-    const { isFetching, lgas } = useFetchLocalGovt();
+    const { isFetching, lgas, metaData } = useFetchLocalGovt();
     const [selectedLga, setSelectedLga] = useState<LgaFormProp | null>(null)
     const [isFormOpen, setIsFormOpen] = useState(false) 
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
@@ -144,6 +144,7 @@ export default function LocalGovts() {
                                     </table>
                                 </div>
                             </div>
+                            <pre>{JSON.stringify(metaData, null, 2)}</pre>
                         </div>
                     </div>
                 ): null}
