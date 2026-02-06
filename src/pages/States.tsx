@@ -10,6 +10,7 @@ import { API_BASE_URL, STATES_QUERY_KEY } from "../constants";
 import { useToastContext } from "../contexts/ToastContext";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocalStorageToken } from "../hooks/useLocalStorageToken";
+import { deleteRequest } from "../services";
 
 export default function States() {
     const { states, isFetching, setPage, metaData } = useFetchStates()
@@ -48,30 +49,24 @@ export default function States() {
     const handleDeleteConfirm = async() => {
         console.log('Delete confirmed for', selectedState);
 
-        const url = `${API_BASE_URL}/states/${selectedState?._id}`
+        const url = `/states/${selectedState?._id}`
         
-        const response = await fetch(url, {
-            method: 'DELETE',
-            headers: { 
-                Authorization: `Bearer ${getToken()}`,
-                'Content-Type': 'application/json',
-                'Accept': 'application/json', 
-            },
-            body: JSON.stringify({ 
-                _id: selectedState?._id,
-            }),
+        const response = deleteRequest(url, getToken())
+        
+        return response.then((feedback) => {
+            if (feedback?.status === 201) {
+                setIsDeleteModalOpen(false)
+                queryClient.invalidateQueries({ queryKey: [STATES_QUERY_KEY] })
+                showToast(
+                    'Success', 
+                    feedback?.data?.message || `State deleted successfully`,
+                    'success', true, 10
+                )
+            }
+        }).catch((error) => {
+            setIsDeleteModalOpen(false)
+            showToast('Error Occurred', error?.response?.data?.message || 'An error occurred', 'error', true, 10)
         })
-
-        const feedback = await response.json()
-
-        if (feedback?.status === 'success') {
-            queryClient.invalidateQueries({ queryKey: [STATES_QUERY_KEY] })
-            showToast('Success', feedback?.message || 'State deleted successfully', 'success', true, 10)
-            setIsDeleteModalOpen(false)
-        } else {
-            showToast('Error Occurred', feedback?.message || 'An error occurred', 'error', true, 10)
-            setIsDeleteModalOpen(false)
-        }
     }
 
     return (
