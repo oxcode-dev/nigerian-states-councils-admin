@@ -49,3 +49,13 @@ export type WardPaginationProp = {
         totalPages:  number
     }
 };
+
+export type LgaPaginationProp = {
+    lgas: LgaFormProp[];
+    metadata: {
+        page: number
+        limit: number
+        totalCount: number
+        totalPages:  number
+    }
+};

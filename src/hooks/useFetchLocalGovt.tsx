@@ -2,7 +2,7 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { get } from '../services';
 import { useMemo } from 'react';
 import { LGAS_QUERY_KEY } from '../constants';
-import type { LgaFormProp } from '../types';
+import type { LgaFormProp, LgaPaginationProp } from '../types';
 
 export const useFetchLocalGovt = () => {
     async function fetchLocalGovt() {
@@ -28,8 +28,13 @@ export const useFetchLocalGovt = () => {
         return lgasList || [];
     }, [lgasList]);
 
+    const metaData = useMemo(() => {
+        return (lgasList as LgaPaginationProp)?.metadata || null;
+    }, [lgasList]);
+
     return {
         lgas,
+        metaData,
         error,
         isFetching,
         isLoading,
