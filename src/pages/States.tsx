@@ -6,7 +6,7 @@ import StateForm from "../forms/StateForm";
 import { useState } from "react";
 import type { StateFormProp } from "../types";
 import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
-import { API_BASE_URL, STATES_QUERY_KEY } from "../constants";
+import { STATES_QUERY_KEY } from "../constants";
 import { useToastContext } from "../contexts/ToastContext";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocalStorageToken } from "../hooks/useLocalStorageToken";
