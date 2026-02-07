@@ -21,13 +21,13 @@ export default function Layout ({ children }: PropType) {
                 
                 {isOpen ? <div role="button" onClick={() => setIsOpen(false)} className="fixed md:hidden bg-gray-500/50 w-full h-full z-20"></div> : null }
                 
-                <div className="p-4 border-b border-gray-200 md:hidden fixed top-0 w-full bg-white">
+                <div className="p-4 border-b border-gray-200 md:hidden fixed z-[40] top-0 w-full bg-white">
                     <div className="flex justify-between items-center">
                         <a>
                             <span className="text-xl font-bold text-slate-800 tracking-tight">Socials</span>
                         </a>
 
-                        <a href="#" type="button" onClick={() => setIsOpen(true)}>
+                        <a className="text-gray-500" href="#" type="button" onClick={() => setIsOpen(true)}>
                             <Bars3Icon className="size-5" />
                         </a>
                     </div>
