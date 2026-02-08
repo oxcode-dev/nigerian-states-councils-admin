@@ -39,7 +39,7 @@ export default function ProfileForm() {
     }
 
     const handleForm = async (data: UserDetailsProp) => {
-        const url = `/states`
+        const url = `/profile`
 
         const response = put(url, data , getToken()) 
 
@@ -105,7 +105,7 @@ export default function ProfileForm() {
                     </div>
                     <button
                         type="submit"
-                        className="transition duration-200 bg-green-700 hover:bg-green-600 focus:bg-green-700 focus:shadow-sm focus:ring-4 focus:ring-green-500 focus:ring-opacity-50 text-white w-full py-3 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block"
+                        className="transition duration-200 bg-indigo-700 hover:bg-indigo-600 focus:bg-indigo-700 focus:shadow-sm focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 text-white w-full py-3 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block"
                     >
                         <span>Update Profile</span>
                     </button>
