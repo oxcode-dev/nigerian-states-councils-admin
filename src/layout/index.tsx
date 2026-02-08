@@ -2,12 +2,16 @@
 import { useState } from "react";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import Sidebar from "../components/Sidebar";
+import { useFetchUserDetails } from "../hooks/useFetchUserDetails";
 
 type PropType = {
     children: React.ReactNode
 }
 
 export default function Layout ({ children }: PropType) {
+    const {data: userDetails} = useFetchUserDetails();
+    console.log(userDetails);
+    
     const [isOpen, setIsOpen] = useState(false)
     return (
         <>
