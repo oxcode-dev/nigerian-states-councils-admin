@@ -1,8 +1,69 @@
+import { useState } from "react"
+import { useToastContext } from "../contexts/ToastContext"
+import { useLocalStorageToken } from "../hooks/useLocalStorageToken"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useForm } from "react-hook-form"
+import type { UserDetailsProp } from "../types"
+import { useFetchUserDetails } from "../hooks/useFetchUserDetails"
+import { put } from "../services"
+import { AUTH_USER_QUERY_KEY } from "../constants"
+
 export default function ProfileForm() {
+    const { showToast } = useToastContext()
+    const { getToken } = useLocalStorageToken()
+    const { user } = useFetchUserDetails();
+    
+    const [errorBag, setErrorBag] = useState<string | null>(null)
+
+    const queryClient = useQueryClient()
+
+    const mutation = useMutation({
+        mutationFn: (data: UserDetailsProp) => handleForm(data)
+    })
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<UserDetailsProp>({
+        defaultValues: {
+            first_name: user?.first_name || '',
+            last_name: user?.last_name || '',
+            email: user?.email || '',
+            id: user?.id || ''
+        }
+    });
+
+    const onSubmit = async(data: UserDetailsProp) => {
+        mutation.mutate(data)
+    }
+
+    const handleForm = async (data: UserDetailsProp) => {
+        const url = `/states}`
+
+        const response = put(url, data , getToken()) 
+
+        return response.then((feedback) => {
+            if (feedback?.status === 201) {
+                queryClient.invalidateQueries({ queryKey: [AUTH_USER_QUERY_KEY] })
+                setErrorBag(null)
+                showToast(
+                    'Success', 
+                    feedback?.data?.message || `Profile Updated Successfully`,
+                    'success', true, 10
+                )
+            }
+        }).catch((error) => {
+            // console.log(error.response, 'new error')
+            setErrorBag(error?.response?.data?.message || 'An error occurred')
+            showToast('Error Occurred', error?.response?.data?.message || 'An error occurred', 'error', true, 10)
+        })
+    }
+
     return (
         <>
             <div>
-                <form>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     {/* <h2 className="pb-6 py-4 text-2xl"> Change Password </h2> */}
                     <div className="my-1 pt-2">
                         <label className="font-semibold text-sm text-gray-600 pb-1 block">
