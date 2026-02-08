@@ -9,11 +9,11 @@ const navItems = [
         link: '/',
         active: true,
     },
-    {
-        label: "States",
-        link: '/states',
-        active: true,
-    },
+    // {
+    //     label: "States",
+    //     link: '/states',
+    //     active: true,
+    // },
     {
         label: "Local Governments",
         link: '/local-governments',
