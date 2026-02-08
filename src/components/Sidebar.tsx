@@ -43,8 +43,7 @@ type PropType = {
 }
 
 export default function Sidebar ({ isOpen, setIsOpen}: PropType) {
-    const {data: userDetails} = useFetchUserDetails();
-    console.log(userDetails?.user);
+    const { user } = useFetchUserDetails();
     return (
         <aside className="w-64 fixed top-0 left-0 bottom-0 z-50">
             <div className="w-full bg-white border-r border-gray-200 flex-shrink-0 flex flex-col h-full">
@@ -72,10 +71,14 @@ export default function Sidebar ({ isOpen, setIsOpen}: PropType) {
                     <div className="pb-4 px-2">
                         <div className="inline-flex items-center justify-between w-full">
                             <div className="space-x-3 flex items-center">
-                                <span className="bg-gray-200 size-8 p-2 text-sm text-gray-600 rounded-full inline-flex items-center justify-center">OS</span>
+                                <span className="bg-gray-200 size-8 p-2 text-sm text-gray-600 rounded-full inline-flex items-center justify-center">
+                                    {user?.first_name?.charAt(0).toUpperCase() || "U"}
+                                </span>
                                 <p className="inline-flex flex-col text-sm font-medium text-gray-600 -space-y-0.5">
-                                    <span>Osemeke Samuel</span>
-                                    <span className="font-light text-xs">@oxcode__</span>
+                                    <span>{user?.fullName || "User"}</span>
+                                    <span className="font-light text-xs">@
+                                        {user?.email || "user"}
+                                    </span>
                                 </p>
                             </div>
                             {/* <p>

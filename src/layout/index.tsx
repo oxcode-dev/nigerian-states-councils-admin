@@ -9,8 +9,7 @@ type PropType = {
 }
 
 export default function Layout ({ children }: PropType) {
-    const {user: userDetails} = useFetchUserDetails();
-    console.log(userDetails);
+    useFetchUserDetails();
 
     const [isOpen, setIsOpen] = useState(false)
     return (
