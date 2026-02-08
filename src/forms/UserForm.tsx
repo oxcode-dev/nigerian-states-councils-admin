@@ -4,15 +4,22 @@ import { useLocalStorageToken } from "../hooks/useLocalStorageToken"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
 import type { UserDetailsProp } from "../types"
-import { useFetchUserDetails } from "../hooks/useFetchUserDetails"
 import { put } from "../services"
 import { AUTH_USER_QUERY_KEY } from "../constants"
+import Modal from "../components/Modal"
 
-export default function ProfileForm() {
+type FormProp = {
+    user: UserDetailsProp | null;
+    open: boolean;
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export default function UserForm({ open, setOpen, user } : FormProp) {
+
     const { showToast } = useToastContext()
     const { getToken } = useLocalStorageToken()
-    const { user } = useFetchUserDetails();
-    const [isLoading, setIsLoading] = useState(false)
+
+    // const [isLoading, setIsLoading] = useState(false)
     
     const [errorBag, setErrorBag] = useState<string | null>(null)
 
@@ -31,6 +38,7 @@ export default function ProfileForm() {
             first_name: user?.first_name || '',
             last_name: user?.last_name || '',
             email: user?.email || '',
+            isAdmin: user?.isAdmin || false,
             id: user?.id || ''
         }
     });
@@ -40,7 +48,6 @@ export default function ProfileForm() {
     }
 
     const handleForm = async (data: UserDetailsProp) => {
-        setIsLoading(true)
         const url = `/profile`
 
         const response = put(url, data , getToken()) 
@@ -49,7 +56,6 @@ export default function ProfileForm() {
             if (feedback?.status === 201) {
                 queryClient.invalidateQueries({ queryKey: [AUTH_USER_QUERY_KEY] })
                 setErrorBag(null)
-                setIsLoading(false)
                 showToast(
                     'Success', 
                     feedback?.data?.message || `Profile Updated Successfully`,
@@ -59,13 +65,12 @@ export default function ProfileForm() {
         }).catch((error) => {
             // console.log(error.response, 'new error')
             setErrorBag(error?.response?.data?.message || 'An error occurred')
-            setIsLoading(false)
             showToast('Error Occurred', error?.response?.data?.message || 'An error occurred', 'error', true, 10)
         })
     }
 
     return (
-        <>
+        <Modal show={open} onClose={() => setOpen(false)}>
             <div>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     {/* <h2 className="pb-6 py-4 text-2xl"> Change Password </h2> */}
@@ -107,15 +112,18 @@ export default function ProfileForm() {
                         />
                         {errors.email && <span className="text-red-600 text-xs font-medium">Email is required</span>}
                     </div>
-                    <button
-                        disabled={isLoading}
-                        type="submit"
-                        className="transition duration-200 bg-indigo-700 hover:bg-indigo-600 focus:bg-indigo-700 focus:shadow-sm focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 text-white w-full py-3 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block"
-                    >
-                        <span>{isLoading ? 'Processing...' : 'Update Profile'}</span>
-                    </button>
+
+                    <div className="py-2 pt-6 space-x-3">
+                        <button onClick={() => setOpen(false)} type="button" className="btn btn-md bg-gray-200 border-gray-300 text-gray-500 rounded-md">
+                            Cancel
+                        </button>
+                        <button disabled={mutation.isPending} type="submit" className="btn !bg-green-600 active:bg-green-600 border-green-600 text-white btn-md rounded-md">
+                            { mutation.isPending && <span className="loading loading-spinner loading-sm text-white"></span> }
+                            <span>{ mutation.isPending ? 'Loading...' : 'Save'}</span>
+                        </button>
+                    </div>
                 </form>
             </div>
-        </>
+        </Modal>
     )
 }
