@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useFetchWards } from "../hooks/useFetchWards";
 import Layout from "../layout";
-import type { WardFormProp } from "../types";
+import type { UserDetailsProp } from "../types";
 import { useToastContext } from "../contexts/ToastContext";
 import { useLocalStorageToken } from "../hooks/useLocalStorageToken";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { API_BASE_URL, WARDS_QUERY_KEY } from "../constants";
+import { API_BASE_URL, USERS_QUERY_KEY } from "../constants";
 import { Spinner } from "../components/Spinner";
 import { PencilIcon, TrashIcon } from "@heroicons/react/20/solid";
 import WardForm from "../forms/WardForm";
@@ -13,7 +13,7 @@ import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
 
 export default function Users() {
     const { wards,metaData, isFetching } = useFetchWards()
-    const [selectedWard, setSelectedWard] = useState<WardFormProp | null>(null)
+    const [selectedUser, setSelectedUser] = useState<UserDetailsProp | null>(null)
     const [isFormOpen, setIsFormOpen] = useState(false) 
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
@@ -22,18 +22,18 @@ export default function Users() {
     
     const queryClient = useQueryClient()
 
-    const handleEdit = (ward: WardFormProp) => {
-        setSelectedWard(ward)
+    const handleEdit = (user: UserDetailsProp) => {
+        setSelectedUser(user)
         setIsFormOpen(true)
     }
 
     const handleAdd = () => {
-        setSelectedWard(null)
+        setSelectedUser(null)
         setIsFormOpen(true)
     }
 
-    const handleDelete = (ward: WardFormProp) => {
-        setSelectedWard(ward)
+    const handleDelete = (user: UserDetailsProp) => {
+        setSelectedUser(user)
         setIsDeleteModalOpen(true)
     }
 
@@ -41,14 +41,13 @@ export default function Users() {
         mutationFn: () => handleDeleteConfirm()
     })
 
-    const onDeleteWard = async() => {
+    const onDeleteUser = async() => {
         mutation.mutate()
     }
 
     const handleDeleteConfirm = async() => {
-        console.log('Delete confirmed for', selectedWard);
 
-        const url = `${API_BASE_URL}/wards/${selectedWard?._id}`
+        const url = `${API_BASE_URL}/wards/${selectedUser?.id}`
         
         const response = await fetch(url, {
             method: 'DELETE',
@@ -58,15 +57,15 @@ export default function Users() {
                 'Accept': 'application/json', 
             },
             body: JSON.stringify({ 
-                _id: selectedWard?._id,
+                _id: selectedUser?.id,
             }),
         })
 
         const feedback = await response.json()
 
         if (feedback?.status === 'success') {
-            queryClient.invalidateQueries({ queryKey: [WARDS_QUERY_KEY] })
-            showToast('Success', feedback?.message || 'State deleted successfully', 'success', true, 10)
+            queryClient.invalidateQueries({ queryKey: [USERS_QUERY_KEY] })
+            showToast('Success', feedback?.message || 'User deleted successfully', 'success', true, 10)
             setIsDeleteModalOpen(false)
         } else {
             showToast('Error Occurred', feedback?.message || 'An error occurred', 'error', true, 10)
@@ -152,14 +151,14 @@ export default function Users() {
                     <WardForm 
                         open={isFormOpen} 
                         setOpen={setIsFormOpen} 
-                        state={selectedWard}
+                        state={selectedUser}
                     />
                 }
                 { isDeleteModalOpen && 
                     <ConfirmDeleteModal 
                         active={isDeleteModalOpen} 
-                        message="Are you sure you want to delete this ward?" 
-                        submitFn={onDeleteWard} 
+                        message="Are you sure you want to delete this user?" 
+                        submitFn={onDeleteUser} 
                         onClose={() => setIsDeleteModalOpen(false)}
                     />
                 }
