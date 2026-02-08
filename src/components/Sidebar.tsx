@@ -32,7 +32,7 @@ const navItems = [
     {
         label: "Log Out",
         // icon: ArrowRightStartOnRectangleIcon,
-        link: '#',
+        link: '/logout',
         active: true,
     }
 ]

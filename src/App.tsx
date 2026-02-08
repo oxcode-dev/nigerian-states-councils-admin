@@ -7,6 +7,7 @@ import PublicRoute from "./components/PublicRoutes"
 import States from "./pages/States"
 import LocalGovts from "./pages/LGAs"
 import Setting from "./pages/Settings"
+import Logout from "./pages/Logout"
 // import Wards from "./pages/Wards"
 
 function App() {
@@ -50,6 +51,7 @@ const AdminRoutes = () => {
       <Route path="/local-governments" element={<LocalGovts />} />
       {/* <Route path="/wards" element={<Wards />} /> */}
       <Route path="/settings" element={<Setting />} />
+      <Route path="/logout" element={<Logout />} />
     </Routes>
   )
 }

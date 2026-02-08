@@ -4,12 +4,14 @@ import { deleteRequest } from '../services'
 import { useLocalStorageToken } from '../hooks/useLocalStorageToken'
 
 const page = () => {
-    const { getToken } = useLocalStorageToken()
+    const { getToken, removeToken } = useLocalStorageToken()
 
     const handleLogout = async() => {
-        await deleteRequest('/api/logout', getToken())
+        await deleteRequest('/logout', getToken())
+
+        removeToken()
       
-        window.location.href = '/'
+        window.location.href = '/login'
     }
 
     useEffect(() => {
