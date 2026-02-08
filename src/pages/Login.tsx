@@ -7,7 +7,6 @@ import { useToastContext } from "../contexts/ToastContext";
 import { useLocalStorageToken } from "../hooks/useLocalStorageToken";
 import { API_BASE_URL } from "../constants";
 
-
 type Inputs = {
   email: string
   password: string
