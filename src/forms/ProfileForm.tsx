@@ -40,6 +40,7 @@ export default function ProfileForm() {
     }
 
     const handleForm = async (data: UserDetailsProp) => {
+        setIsLoading(true)
         const url = `/profile`
 
         const response = put(url, data , getToken()) 

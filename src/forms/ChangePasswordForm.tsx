@@ -34,6 +34,7 @@ export default function ChangePasswordForm() {
     });
 
     const onSubmit = async (data: PasswordFormProp) => {
+        setIsLoading(true)
         if (data.password !== data.confirm_password) {
             setErrorBag('Passwords do not match')
             showToast('Error Occurred', 'Passwords do not match', 'error', true, 10)
