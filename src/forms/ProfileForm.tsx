@@ -12,6 +12,7 @@ export default function ProfileForm() {
     const { showToast } = useToastContext()
     const { getToken } = useLocalStorageToken()
     const { user } = useFetchUserDetails();
+    const [isLoading, setIsLoading] = useState(false)
     
     const [errorBag, setErrorBag] = useState<string | null>(null)
 
@@ -47,6 +48,7 @@ export default function ProfileForm() {
             if (feedback?.status === 201) {
                 queryClient.invalidateQueries({ queryKey: [AUTH_USER_QUERY_KEY] })
                 setErrorBag(null)
+                setIsLoading(false)
                 showToast(
                     'Success', 
                     feedback?.data?.message || `Profile Updated Successfully`,
@@ -56,6 +58,7 @@ export default function ProfileForm() {
         }).catch((error) => {
             // console.log(error.response, 'new error')
             setErrorBag(error?.response?.data?.message || 'An error occurred')
+            setIsLoading(false)
             showToast('Error Occurred', error?.response?.data?.message || 'An error occurred', 'error', true, 10)
         })
     }
@@ -104,10 +107,11 @@ export default function ProfileForm() {
                         {errors.email && <span className="text-red-600 text-xs font-medium">Email is required</span>}
                     </div>
                     <button
+                        disabled={isLoading}
                         type="submit"
                         className="transition duration-200 bg-indigo-700 hover:bg-indigo-600 focus:bg-indigo-700 focus:shadow-sm focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 text-white w-full py-3 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block"
                     >
-                        <span>Update Profile</span>
+                        <span>{isLoading ? 'Processing...' : 'Update Profile'}</span>
                     </button>
                 </form>
             </div>
