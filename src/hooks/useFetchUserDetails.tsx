@@ -1,8 +1,9 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { get } from '../services';
-// import { useMemo } from 'react';
+import { useMemo } from 'react';
 import { AUTH_USER_QUERY_KEY } from '../constants';
 import { useLocalStorageToken } from './useLocalStorageToken';
+import type { UserDetailsProp, userFetchResponseProp } from '../types';
 
 export const useFetchUserDetails = () => {
     const { getToken } = useLocalStorageToken()
@@ -21,25 +22,19 @@ export const useFetchUserDetails = () => {
         return response?.data;
     }
 
-    const { data, error, isLoading, isFetching } = useQuery({
+    const { data: userResponse, error, isLoading, isFetching } = useQuery({
         queryKey: [AUTH_USER_QUERY_KEY],
         queryFn: () => fetchAuthUserDetails(),
         placeholderData: keepPreviousData,
         staleTime: 10 * 60 * 1000,
     });
 
-    // const wards: WardFormProp[] = useMemo(() => {
-    //     return (wardList as WardPaginationProp)?.wards || [];
-    // }, [wardList]);
-
-    // const metaData = useMemo(() => {
-    //     return (wardList as WardPaginationProp)?.metadata || null;
-    // }, [wardList]);
+    const user: UserDetailsProp[] = useMemo(() => {
+        return (userResponse as userFetchResponseProp)?.user ? [userResponse.user] :[];
+    }, [userResponse]);
 
     return {
-        // wards,
-        // metaData,
-        data,
+        user,
         error,
         isFetching,
         isLoading,

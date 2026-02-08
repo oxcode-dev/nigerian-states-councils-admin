@@ -1,6 +1,7 @@
 import { XMarkIcon } from "@heroicons/react/24/outline"
 import type React from "react"
 import { Link } from "react-router-dom"
+import { useFetchUserDetails } from "../hooks/useFetchUserDetails"
 
 const navItems = [
     {
@@ -42,6 +43,8 @@ type PropType = {
 }
 
 export default function Sidebar ({ isOpen, setIsOpen}: PropType) {
+    const {data: userDetails} = useFetchUserDetails();
+    console.log(userDetails?.user);
     return (
         <aside className="w-64 fixed top-0 left-0 bottom-0 z-50">
             <div className="w-full bg-white border-r border-gray-200 flex-shrink-0 flex flex-col h-full">

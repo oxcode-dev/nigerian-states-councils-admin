@@ -69,3 +69,20 @@ export type LgaPaginationProp = {
         totalPages:  number
     }
 };
+
+export type UserDetailsProp = {
+    name: string
+    email: string
+    role: string
+    first_name: string
+    last_name: string
+    fullName: string
+    isAdmin: boolean
+    id: string
+}
+
+export type userFetchResponseProp = {
+    user: UserDetailsProp
+    message: string
+    status: string
+}
