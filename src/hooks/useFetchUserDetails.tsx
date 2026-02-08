@@ -2,12 +2,15 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { get } from '../services';
 // import { useMemo } from 'react';
 import { AUTH_USER_QUERY_KEY } from '../constants';
+import { useLocalStorageToken } from './useLocalStorageToken';
 
 export const useFetchUserDetails = () => {
+    const { getToken } = useLocalStorageToken()
+    
     async function fetchAuthUserDetails() {
         const url = `/profile`;
     
-        const response = await get(url)
+        const response = await get(url, getToken())
 
         console.log('Response', response.data)
 

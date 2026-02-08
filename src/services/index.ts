@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export async function get(url: string, token: string = '') {
+export async function get(url: string, token: string | null = '') {
     const res = await axios(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}${url}`, {
         headers: { 
             Authorization: `${token ? 'Bearer ' + token : ''}`,
