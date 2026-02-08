@@ -71,9 +71,8 @@ export type LgaPaginationProp = {
 };
 
 export type UserDetailsProp = {
-    name: string
     email: string
-    role: string
+    // role: string
     first_name: string
     last_name: string
     fullName: string

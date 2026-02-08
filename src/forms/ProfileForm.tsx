@@ -39,7 +39,7 @@ export default function ProfileForm() {
     }
 
     const handleForm = async (data: UserDetailsProp) => {
-        const url = `/states}`
+        const url = `/states`
 
         const response = put(url, data , getToken()) 
 
@@ -65,6 +65,8 @@ export default function ProfileForm() {
             <div>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     {/* <h2 className="pb-6 py-4 text-2xl"> Change Password </h2> */}
+                    { errorBag && <div className="bg-red-100 text-red-700 p-3 rounded">{errorBag}</div> }
+
                     <div className="my-1 pt-2">
                         <label className="font-semibold text-sm text-gray-600 pb-1 block">
                             First Name
@@ -72,8 +74,10 @@ export default function ProfileForm() {
                         <input
                             type="text"
                             required
+                            {...register("first_name",  { required: true })}
                             className="border rounded-lg px-3 py-3 mt-1 mb-5 text-sm w-full"
                         />
+                        {errors.first_name && <span className="text-red-600 text-xs font-medium">First Name is required</span>}
                     </div>
                     <div className="my-1">
                         <label className="font-semibold text-sm text-gray-600 pb-1 block">
@@ -82,8 +86,10 @@ export default function ProfileForm() {
                         <input
                             type="text"
                             required
+                            {...register("last_name",  { required: true })}
                             className="border rounded-lg px-3 py-3 mt-1 mb-5 text-sm w-full"
                         />
+                        {errors.last_name && <span className="text-red-600 text-xs font-medium">Last Name is required</span>}
                     </div>
                     <div className="my-1">
                         <label className="font-semibold text-sm text-gray-600 pb-1 block">
@@ -92,8 +98,10 @@ export default function ProfileForm() {
                         <input
                             type="email"
                             required
+                            {...register("email",  { required: true })}
                             className="border rounded-lg px-3 py-3 mt-1 mb-5 text-sm w-full"
                         />
+                        {errors.email && <span className="text-red-600 text-xs font-medium">Email is required</span>}
                     </div>
                     <button
                         type="submit"
