@@ -15,7 +15,7 @@ export const useFetchUsers = () => {
     
         const response = await get(url, getToken())
 
-        if (!response.status || response.status !== 200) {
+        if (!response.status || response.status !== 201) {
             throw new Error("Failed to fetch user details");
         }
 

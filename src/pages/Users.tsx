@@ -14,6 +14,7 @@ import { useFetchUsers } from "../hooks/useFetchUsers";
 
 export default function Users() {
     const { users, metaData, isFetching } = useFetchUsers()
+    console.log(users, metaData, isFetching)
     const [selectedUser, setSelectedUser] = useState<UserDetailsProp | null>(null)
     const [isFormOpen, setIsFormOpen] = useState(false) 
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
@@ -118,7 +119,7 @@ export default function Users() {
                                             {users?.map((user) => (
                                                 <tr key={user.id} className="bg-gray-100 border-b border-gray-200">
                                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                        {user?.fullName}
+                                                        {`${user?.first_name || ''} ${user?.last_name || ''}`}
                                                     </td>
                                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap hidden md:table-cell">
                                                         {user?.email}
