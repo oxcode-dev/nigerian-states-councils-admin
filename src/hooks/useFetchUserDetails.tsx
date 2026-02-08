@@ -29,8 +29,8 @@ export const useFetchUserDetails = () => {
         staleTime: 10 * 60 * 1000,
     });
 
-    const user: UserDetailsProp[] = useMemo(() => {
-        return (userResponse as userFetchResponseProp)?.user ? [userResponse.user] :[];
+    const user: UserDetailsProp = useMemo(() => {
+        return (userResponse as userFetchResponseProp)?.user ? userResponse.user : {} as UserDetailsProp;
     }, [userResponse]);
 
     return {
