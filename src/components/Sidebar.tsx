@@ -19,6 +19,11 @@ const navItems = [
         link: '/local-governments',
         active: true,
     },
+    {
+        label: "Users",
+        link: '/users',
+        active: true,
+    },
     // {
     //     label: "Wards",
     //     link: '/wards',
