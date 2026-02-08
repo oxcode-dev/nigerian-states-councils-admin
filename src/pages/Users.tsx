@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useFetchWards } from "../hooks/useFetchWards";
 import Layout from "../layout";
 import type { UserDetailsProp } from "../types";
 import { useToastContext } from "../contexts/ToastContext";
@@ -7,12 +6,14 @@ import { useLocalStorageToken } from "../hooks/useLocalStorageToken";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { API_BASE_URL, USERS_QUERY_KEY } from "../constants";
 import { Spinner } from "../components/Spinner";
-import { PencilIcon, TrashIcon } from "@heroicons/react/20/solid";
-import WardForm from "../forms/WardForm";
+import { TrashIcon } from "@heroicons/react/20/solid";
+// import { PencilIcon, TrashIcon } from "@heroicons/react/20/solid";
 import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
+import UserForm from "../forms/UserForm";
+import { useFetchUsers } from "../hooks/useFetchUsers";
 
 export default function Users() {
-    const { wards,metaData, isFetching } = useFetchWards()
+    const { users, metaData, isFetching } = useFetchUsers()
     const [selectedUser, setSelectedUser] = useState<UserDetailsProp | null>(null)
     const [isFormOpen, setIsFormOpen] = useState(false) 
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
@@ -22,10 +23,10 @@ export default function Users() {
     
     const queryClient = useQueryClient()
 
-    const handleEdit = (user: UserDetailsProp) => {
-        setSelectedUser(user)
-        setIsFormOpen(true)
-    }
+    // const handleEdit = (user: UserDetailsProp) => {
+    //     setSelectedUser(user)
+    //     setIsFormOpen(true)
+    // }
 
     const handleAdd = () => {
         setSelectedUser(null)
@@ -76,12 +77,12 @@ export default function Users() {
         <Layout>
             <main className="rounded-lg bg-white text-slate-500 px-4 py-4">
                 <div className="flex items-center justify-between px-2">
-                    <h2 className="text-2xl font-semibold text-slate-800">Wards</h2>
+                    <h2 className="text-2xl font-semibold text-slate-800">Users</h2>
                     <button onClick={() => handleAdd()} className="px-4 bg-green-700 text-white py-1.5 rounded">Add</button>
                 </div>
 
                 { isFetching && <Spinner /> }
-                { !isFetching && wards?.length > 0 ? (
+                { !isFetching && users?.length > 0 ? (
                     <div className="flex flex-col">
                         <div className="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
                             <div className="py-2 inline-block min-w-full">
@@ -99,13 +100,13 @@ export default function Users() {
                                                     scope="col"
                                                     className="text-sm font-medium text-gray-900 px-6 py-4 text-left hidden md:table-cell"
                                                 >
-                                                    Geo Zone
+                                                    Email
                                                 </th>
                                                 <th
                                                     scope="col"
                                                     className="text-sm font-medium text-gray-900 px-6 py-4 text-left hidden md:table-cell"
                                                 >
-                                                    Capital City
+                                                    User Type
                                                 </th>
                                                 <th
                                                     scope="col"
@@ -114,23 +115,23 @@ export default function Users() {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {wards?.map((ward) => (
-                                                <tr key={ward._id} className="bg-gray-100 border-b border-gray-200">
+                                            {users?.map((user) => (
+                                                <tr key={user.id} className="bg-gray-100 border-b border-gray-200">
                                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                        {ward.name}
+                                                        {user?.fullName}
                                                     </td>
                                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap hidden md:table-cell">
-                                                        {ward.state_id}
+                                                        {user?.email}
                                                     </td>
                                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap hidden md:table-cell">
-                                                        {ward.capital_town}
+                                                        {user.isAdmin ? 'Admin' : 'User'}
                                                     </td>
                                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                                         <div className="space-x-2">
-                                                            <button onClick={() => handleEdit(ward)} className="w-6 h-6 bg-blue-600 text-white rounded p-1 cursor-pointer">
+                                                            {/* <button onClick={() => handleEdit(user)} className="w-6 h-6 bg-blue-600 text-white rounded p-1 cursor-pointer">
                                                                 <PencilIcon className="size-4" />
-                                                            </button>
-                                                            <button onClick={() => handleDelete(ward)} className="w-6 h-6 bg-red-600 text-white rounded p-1 cursor-pointer">
+                                                            </button> */}
+                                                            <button onClick={() => handleDelete(user)} className="w-6 h-6 bg-red-600 text-white rounded p-1 cursor-pointer">
                                                                 <TrashIcon className="size-4" />
                                                             </button>
                                                         </div>
@@ -148,10 +149,10 @@ export default function Users() {
                 ): null}
 
                 { isFormOpen && 
-                    <WardForm 
+                    <UserForm 
                         open={isFormOpen} 
                         setOpen={setIsFormOpen} 
-                        state={selectedUser}
+                        user={selectedUser}
                     />
                 }
                 { isDeleteModalOpen && 

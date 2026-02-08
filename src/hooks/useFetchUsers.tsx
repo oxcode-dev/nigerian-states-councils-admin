@@ -1,16 +1,16 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { get } from '../services';
 import { useMemo, useState } from 'react';
-import { AUTH_USER_QUERY_KEY } from '../constants';
+import { USERS_QUERY_KEY } from '../constants';
 import { useLocalStorageToken } from './useLocalStorageToken';
-import type { UserDetailsProp, userFetchResponseProp } from '../types';
+import type { UserDetailsProp, UserPaginationProp } from '../types';
 
 export const useFetchUsers = () => {
     const [page, setPage] = useState(1);
 
     const { getToken } = useLocalStorageToken()
     
-    async function fetchAuthUserDetails() {
+    async function fetchUsers() {
         const url = `/users?page=${page}`;
     
         const response = await get(url, getToken())
@@ -23,18 +23,23 @@ export const useFetchUsers = () => {
     }
 
     const { data: userResponse, error, isLoading, isFetching } = useQuery({
-        queryKey: [AUTH_USER_QUERY_KEY],
-        queryFn: () => fetchAuthUserDetails(),
+        queryKey: [USERS_QUERY_KEY, page],
+        queryFn: () => fetchUsers(),
         placeholderData: keepPreviousData,
         staleTime: 10 * 60 * 1000,
     });
 
-    const user: UserDetailsProp = useMemo(() => {
-        return (userResponse as userFetchResponseProp)?.user ? userResponse.user : {} as UserDetailsProp;
+    const users: UserDetailsProp[] = useMemo(() => {
+        return (userResponse as UserPaginationProp)?.users || [];
+    }, [userResponse]);
+
+    const metaData = useMemo(() => {
+        return (userResponse as UserPaginationProp)?.metadata || null;
     }, [userResponse]);
 
     return {
-        user,
+        users,
+        metaData,
         error,
         setPage,
         isFetching,

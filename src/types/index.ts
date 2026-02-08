@@ -70,6 +70,16 @@ export type LgaPaginationProp = {
     }
 };
 
+export type UserPaginationProp = {
+    users: UserDetailsProp[];
+    metadata: {
+        page: number
+        limit: number
+        totalCount: number
+        totalPages:  number
+    }
+};
+
 export type UserDetailsProp = {
     email: string
     // role: string
@@ -85,3 +95,5 @@ export type userFetchResponseProp = {
     message: string
     status: string
 }
+
+
