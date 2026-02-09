@@ -4,8 +4,8 @@ import { useLocalStorageToken } from "../hooks/useLocalStorageToken"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
 import type { UserDetailsProp } from "../types"
-import { put } from "../services"
-import { AUTH_USER_QUERY_KEY } from "../constants"
+import { post } from "../services"
+import { USERS_QUERY_KEY } from "../constants"
 import Modal from "../components/Modal"
 
 type FormProp = {
@@ -48,18 +48,18 @@ export default function UserForm({ open, setOpen, user } : FormProp) {
     }
 
     const handleForm = async (data: UserDetailsProp) => {
-        return console.log(data, 'form data')
-        const url = `/profile`
+        const url = `/users`
 
-        const response = put(url, data , getToken()) 
+        const response = post(url, data , getToken()) 
 
         return response.then((feedback) => {
             if (feedback?.status === 201) {
-                queryClient.invalidateQueries({ queryKey: [AUTH_USER_QUERY_KEY] })
+                queryClient.invalidateQueries({ queryKey: [USERS_QUERY_KEY] })
                 setErrorBag(null)
+                setOpen(false)
                 showToast(
                     'Success', 
-                    feedback?.data?.message || `Profile Updated Successfully`,
+                    feedback?.data?.message || `User Created Successfully`,
                     'success', true, 10
                 )
             }
