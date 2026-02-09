@@ -14,7 +14,7 @@ import { useFetchUsers } from "../hooks/useFetchUsers";
 
 export default function Users() {
     const { users, metaData, isFetching, setPage } = useFetchUsers()
-    console.log(users, metaData, isFetching)
+
     const [selectedUser, setSelectedUser] = useState<UserDetailsProp | null>(null)
     const [isFormOpen, setIsFormOpen] = useState(false) 
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)

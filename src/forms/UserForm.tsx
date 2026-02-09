@@ -48,6 +48,7 @@ export default function UserForm({ open, setOpen, user } : FormProp) {
     }
 
     const handleForm = async (data: UserDetailsProp) => {
+        return console.log(data, 'form data')
         const url = `/profile`
 
         const response = put(url, data , getToken()) 
@@ -71,8 +72,11 @@ export default function UserForm({ open, setOpen, user } : FormProp) {
 
     return (
         <Modal show={open} onClose={() => setOpen(false)}>
-            <div>
+            <div className="p-6">
                 <form onSubmit={handleSubmit(onSubmit)}>
+                    <h3 className="text-lg font-medium text-gray-900 pb-4 border-b border-gray-200">
+                        { user && user.id ? 'Edit User' : 'Add New User' }
+                    </h3>
                     {/* <h2 className="pb-6 py-4 text-2xl"> Change Password </h2> */}
                     { errorBag && <div className="bg-red-100 text-red-700 p-3 rounded">{errorBag}</div> }
 
@@ -111,6 +115,25 @@ export default function UserForm({ open, setOpen, user } : FormProp) {
                             className="border rounded-lg px-3 py-3 mt-1 mb-5 text-sm w-full"
                         />
                         {errors.email && <span className="text-red-600 text-xs font-medium">Email is required</span>}
+                    </div>
+
+                    <div className="my-1">
+                        <label className="font-semibold text-sm text-gray-600 pb-1 block">
+                            Admin Status
+                        </label>
+                        {/* <input
+                            type="email"
+                            required
+                            {...register("email",  { required: true })}
+                            className="border rounded-lg px-3 py-3 mt-1 mb-5 text-sm w-full"
+                        /> */}
+                        <input 
+                            type="checkbox" 
+                            defaultChecked={user?.isAdmin || false} 
+                            {...register("isAdmin",  { required: false })}
+                            className="toggle toggle-md !border !border-gray-300"
+                        />
+                        {/* {errors.isAdmin && <span className="text-red-600 text-xs font-medium">Admin status is required</span>} */}
                     </div>
 
                     <div className="py-2 pt-6 space-x-3">
