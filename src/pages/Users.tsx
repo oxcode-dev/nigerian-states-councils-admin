@@ -49,7 +49,7 @@ export default function Users() {
 
     const handleDeleteConfirm = async() => {
 
-        const url = `${API_BASE_URL}/wards/${selectedUser?.id}`
+        const url = `${API_BASE_URL}/users/${selectedUser?._id}`
         
         const response = await fetch(url, {
             method: 'DELETE',

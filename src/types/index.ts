@@ -88,6 +88,7 @@ export type UserDetailsProp = {
     fullName: string
     isAdmin: boolean
     id: string
+    _id?: string | null
 }
 
 export type userFetchResponseProp = {
