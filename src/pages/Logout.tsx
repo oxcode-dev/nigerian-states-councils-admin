@@ -2,16 +2,12 @@
 import { useEffect } from 'react'
 import { deleteRequest } from '../services'
 import { useLocalStorageToken } from '../hooks/useLocalStorageToken'
-import { API_BASE_URL } from '../constants'
-import axios from 'axios'
 
 const Logout = () => {
     const { getToken, removeToken } = useLocalStorageToken()
 
     const handleLogout = async() => {
         await deleteRequest('/auth/logout', getToken())
-
-        await axios.post(`${API_BASE_URL}/auth/logout`)
 
         removeToken()
       
