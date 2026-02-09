@@ -1,7 +1,9 @@
 import { XMarkIcon } from "@heroicons/react/24/outline"
 import type React from "react"
 import { Link } from "react-router-dom"
+import { useLocation } from "react-router"
 import { useFetchUserDetails } from "../hooks/useFetchUserDetails"
+import { useMemo } from "react"
 
 const navItems = [
     {
@@ -49,6 +51,13 @@ type PropType = {
 
 export default function Sidebar ({ isOpen, setIsOpen}: PropType) {
     const { user } = useFetchUserDetails();
+    const location = useLocation();
+
+    const navLinkItems = useMemo(() => {
+        return user?.isAdmin ? 
+           navItems : navItems.filter((nav) => nav.label !== "Users")
+    }, [user])
+  
     return (
         <aside className="w-64 fixed top-0 left-0 bottom-0 z-50">
             <div className="w-full bg-white border-r border-gray-200 flex-shrink-0 flex flex-col h-full">
@@ -63,9 +72,11 @@ export default function Sidebar ({ isOpen, setIsOpen}: PropType) {
 
                 <nav className="flex-1 flex flex-col overflow-y-auto py-4">
                     {
-                        navItems.map((nav, key) => (
-                            <Link to={nav.link} key={key} className="inline-flex text-base space-x-3 items-center text-gray-500 hover:text-blue-500 hover:bg-blue-50 py-3 px-3">
-                                {/* <nav.icon className="size-5" /> */}
+                        navLinkItems.map((nav, key) => (
+                            <Link 
+                                to={nav.link} key={key} 
+                                className={`inline-flex text-base space-x-3 items-center text-gray-500 hover:text-gray-500 hover:bg-gray-50 py-3 px-3 ${location.pathname === nav.link ? 'bg-gray-50 text-gray-500 font-medium' : ''}`}
+                            >
                                 <span>{nav.label}</span>
                             </Link>
                         ))
