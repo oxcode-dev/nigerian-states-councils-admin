@@ -10,11 +10,11 @@ export const useFetchWards = () => {
     
         const response = await get(url)
 
-        if (!response.ok) {
-            throw new Error("Failed to fetch posts");
+        if (!response.status || response.status !== 201) {
+            throw new Error("Failed to fetch wards");
         }
 
-        return response.json();
+        return response?.data;
     }
 
     const { data: wardList, error, isLoading, isFetching } = useQuery({
