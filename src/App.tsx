@@ -10,6 +10,7 @@ import Setting from "./pages/Settings"
 import Logout from "./pages/Logout"
 import Users from "./pages/Users"
 import ResetPassword from "./pages/ResetPassword"
+import NotFoundPage from "./pages/NotFoundPage"
 // import Wards from "./pages/Wards"
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
     <>
      <Router>
       <Routes>
+        <Route path="*" element={<NotFoundPage />} />
         <Route path="/login" element={
           <PublicRoute>
             <Login />
