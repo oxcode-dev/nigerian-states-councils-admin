@@ -1,13 +1,15 @@
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import AuthLayout from "../layout/AuthLayout";
 import { Link } from "react-router";
 import { useToastContext } from "../contexts/ToastContext";
 import { post } from "../services";
+import { useState } from "react";
 
 type ForgotPasswordFormProp = {
     email: string
 }
 export default function ForgotPassword() {
+    const [isLoading, setIsLoading] = useState(false)
     const { showToast } = useToastContext()
     
     const {
@@ -21,28 +23,31 @@ export default function ForgotPassword() {
     });
 
      const handleForm = async (data: ForgotPasswordFormProp) => {
-            const url = `/password/forgot`
-    
-            const formData = { 
-                email: data?.email,
-            }
-    
-            const response = post(url, formData);
-    
-            return response.then((feedback) => {
-                if (feedback?.status === 201) {
-                    showToast(
-                        'Success', 
-                        feedback?.data?.message || `Password reset instructions sent successfully`,
-                        'success', true, 10
-                    )
-                }
-            }).catch((error) => {
-                console.log(error.response, 'new error')
-                // setErrorBag(error?.response?.data?.message || 'An error occurred')
-                showToast('Error Occurred', error?.response?.data?.message || 'An error occurred', 'error', true, 10)
-            })
+        setIsLoading(true)
+        const url = `/password/forgot`
+
+        const formData = { 
+            email: data?.email,
         }
+
+        const response = post(url, formData);
+
+        return response.then((feedback) => {
+            if (feedback?.status === 201) {
+                showToast(
+                    'Success', 
+                    feedback?.data?.message || `Password reset instructions sent successfully`,
+                    'success', true, 10
+                )
+            }
+        }).catch((error) => {
+            console.log(error.response, 'new error')
+            // setErrorBag(error?.response?.data?.message || 'An error occurred')
+            showToast('Error Occurred', error?.response?.data?.message || 'An error occurred', 'error', true, 10)
+        }).finally(() => {
+            setIsLoading(false)
+        })
+    }
 
     return (
         <AuthLayout>
@@ -79,8 +84,8 @@ export default function ForgotPassword() {
                             <Link to="/login" className="font-medium text-blue-600 text-sm">Login</Link>
                         </div>
                         <div className="py-4 font-semibold">
-                            <button className="bg-blue-600 text-white px-4 py-3 w-full rounded">
-                                Send Reset Instructions 
+                            <button disabled={isLoading} className="bg-blue-600 text-white px-4 py-3 w-full rounded">
+                                {isLoading ? 'Loading...' : 'Send Reset Instructions'}
                             </button>
                         </div>
                     </form>
