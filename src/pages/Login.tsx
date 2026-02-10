@@ -61,7 +61,10 @@ export default function Login() {
                 <div className="w-40 md:hidden mb-12">
                     <a href="/" className="">
                         <div>
-                            <img src="/assets/img/logo.png" className="w-full h-full object-contain" />
+                            <span className="text-xl font-bold text-slate-800 tracking-tight">
+                                Nigerian States & Councils Admin
+                            </span>
+                            {/* <img src="/assets/img/logo.png" className="w-full h-full object-contain" /> */}
                         </div>
                     </a>
                 </div>
