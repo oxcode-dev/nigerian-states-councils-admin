@@ -1,11 +1,9 @@
 import AuthLayout from "../layout/AuthLayout";
 import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form"
-import axios from "axios";
 import { useState } from "react";
 import { useToastContext } from "../contexts/ToastContext";
 import { useLocalStorageToken } from "../hooks/useLocalStorageToken";
-import { API_BASE_URL } from "../constants";
 import { post } from "../services";
 
 type Inputs = {
