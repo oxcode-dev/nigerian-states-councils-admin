@@ -43,7 +43,7 @@ const StateForm = ({ open, setOpen, state } : FormProp) => {
             slogan: state?.slogan || '',
             description: state?.description || '',
             creation_year: state?.creation_year || 0,
-            _id: state?._id || null,
+            _id: state?._id || '',
         }
     });
 
