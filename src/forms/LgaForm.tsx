@@ -13,12 +13,12 @@ import { post, put } from '../services';
 
 
 type FormProp = {
-    state: LgaFormProp | null;
+    lga: LgaFormProp | null;
     open: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const LgaForm = ({ open, setOpen, state } : FormProp) => {
+const LgaForm = ({ open, setOpen, lga } : FormProp) => {
 
     const { showToast } = useToastContext()
     const { getToken } = useLocalStorageToken()
@@ -38,14 +38,14 @@ const LgaForm = ({ open, setOpen, state } : FormProp) => {
         formState: { errors },
     } = useForm<LgaFormProp>({
         defaultValues: {
-            name: state?.name || '',
-            state_id: state?.state_id || '',
-            code: state?.code || '',
-            capital_town: state?.capital_town || '',
-            slogan: state?.slogan || '',
-            description: state?.description || '',
-            creation_year: state?.creation_year || 0,
-            _id: state?._id || null,
+            name: lga?.name || '',
+            state_id: lga?.state_id || '',
+            code: lga?.code || '',
+            capital_town: lga?.capital_town || '',
+            slogan: lga?.slogan || '',
+            description: lga?.description || '',
+            creation_year: lga?.creation_year || 0,
+            _id: lga?._id || '',
         }
     });
 
@@ -93,7 +93,7 @@ const LgaForm = ({ open, setOpen, state } : FormProp) => {
         <Modal show={open} onClose={() => setOpen(false)} >
             <div className="p-6">
                 <h3 className="text-lg font-medium text-gray-900 pb-4 border-b border-gray-200">
-                    { state && state._id ? 'Edit State' : 'Add New State' }
+                    { lga && lga._id ? 'Edit Local Government' : 'Add New Local Government' }
                 </h3>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 pt-6">
                     { errorBag && <div className="bg-red-100 text-red-700 p-3 rounded">{errorBag}</div> }

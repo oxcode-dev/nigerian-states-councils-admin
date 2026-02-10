@@ -7,7 +7,7 @@ export type StateFormProp = {
     description: string
     creation_year: number
     created_at: string
-    _id?: string | null
+    _id?: string | ''
 };
 
 export type LgaFormProp = {

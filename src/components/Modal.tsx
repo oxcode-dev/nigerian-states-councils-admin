@@ -1,4 +1,4 @@
-import { useEffect, useMemo, ReactNode, KeyboardEvent } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { createPortal } from 'react-dom'
 
 type MaxWidth =
@@ -17,7 +17,7 @@ interface ModalProps {
     closeable?: boolean
     maxWidth?: MaxWidth
     onClose?: () => void
-    children?: ReactNode
+    children?: React.ReactNode
 }
 
 export default function Modal({
@@ -42,14 +42,14 @@ export default function Modal({
 
     // ESC key handling
     useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent | KeyboardEventInit) => {
+        const handleKeyDown = (e: React.KeyboardEvent | KeyboardEventInit) => {
             if (e.key === 'Escape' && show && closeable) {
                 onClose?.()
             }
         }
 
-        window.addEventListener('keydown', handleKeyDown as any)
-        return () => window.removeEventListener('keydown', handleKeyDown as any)
+        window.addEventListener('keydown', handleKeyDown)
+        return () => window.removeEventListener('keydown', handleKeyDown)
     }, [show, closeable, onClose])
 
     const maxWidthClass = useMemo(() => {
