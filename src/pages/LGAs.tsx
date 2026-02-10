@@ -167,7 +167,7 @@ export default function LocalGovts() {
                     <LgaForm
                         open={isFormOpen} 
                         setOpen={setIsFormOpen} 
-                        state={selectedLga}
+                        lga={selectedLga}
                     />
                 }
                 { isDeleteModalOpen && 
