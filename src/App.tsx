@@ -19,7 +19,6 @@ function App() {
     <>
      <Router>
       <Routes>
-        <Route path="*" element={<NotFoundPage />} />
         <Route path="/login" element={
           <PublicRoute>
             <Login />
@@ -46,6 +45,10 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route 
+          path="/404" 
+          element={<NotFoundPage />}
+        />
       </Routes>
      </Router>
     </>
@@ -63,6 +66,11 @@ const AdminRoutes = () => {
       {/* <Route path="/wards" element={<Wards />} /> */}
       <Route path="/settings" element={<Setting />} />
       <Route path="/logout" element={<Logout />} />
+
+      <Route 
+        path="*" 
+        element={<NotFoundPage />}
+      />
     </Routes>
   )
 }
