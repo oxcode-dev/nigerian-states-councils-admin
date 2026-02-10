@@ -47,7 +47,7 @@ export default function ResetPassword() {
             )
             navigate('/login')
         }).catch((error) => {
-            console.log(error.response, 'new error')
+            // console.log(error.response, 'new error')
             // setErrorBag(error?.response?.data?.message || 'An error occurred')
             showToast('Error Occurred', error?.response?.data?.message || 'An error occurred', 'error', true, 10)
         }).finally(() => {

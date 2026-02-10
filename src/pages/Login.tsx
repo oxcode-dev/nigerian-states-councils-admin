@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useToastContext } from "../contexts/ToastContext";
 import { useLocalStorageToken } from "../hooks/useLocalStorageToken";
 import { API_BASE_URL } from "../constants";
+import { post } from "../services";
 
 type Inputs = {
   email: string
@@ -30,31 +31,30 @@ export default function Login() {
         if(!data.email || !data.password) {
             return;
         }
-
-        try {
-            setIsLoading(true);
-
-            const config = {
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            };
-
-            const response = await axios.post(`${API_BASE_URL}/auth/login`, {
-                email: data.email,
-                password: data.password,
-            }, config)
-
-            setToken(response.data.token);
-
-            navigate('/')
-
-        } catch (error) {
-            showToast('Error Occurred', error?.response?.data?.message || 'Error', 'error', true, 10)
-            // console.log(error, error?.response?.data);
-        } finally {
-            setIsLoading(false);
+        setIsLoading(true);
+        const url = `/auth/login`
+        
+        const formData = {
+            email: data.email,
+            password: data.password,
         }
+
+        const response = post(url, formData);
+
+        return response.then((feedback) => {
+            setToken(feedback.data.token);
+
+            showToast(
+                'Success', 
+                feedback?.data?.message || `Login successful`,
+                'success', true, 10
+            )
+            navigate('/')
+        }).catch((error) => {
+            showToast('Error Occurred', error?.response?.data?.message || 'An error occurred', 'error', true, 10)
+        }).finally(() => {
+            setIsLoading(false)
+        })
     }
 
     return (
