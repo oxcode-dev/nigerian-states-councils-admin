@@ -87,18 +87,7 @@ export default function ResetPassword() {
                         </div>
 
                         <div className="py-1">
-                            <label className="text-sm font-medium text-gray-500">Email</label>
-                            <input 
-                                className="block w-full h-12 bg-gray-100 border text-gray-500 rounded border-gray-200 my-1 p-2 focus:outline-none"
-                                type="email" 
-                                {...register("email",  { required: true })}
-                                required
-                            />
-                            {errors.email && <span className="text-red-600 text-xs font-medium">Email is required</span>}
-                        </div>
-
-                        <div className="py-1">
-                            <label className="text-sm font-medium text-gray-500">Email</label>
+                            <label className="text-sm font-medium text-gray-500">OTP</label>
                             <input 
                                 className="block w-full h-12 bg-gray-100 border text-gray-500 rounded border-gray-200 my-1 p-2 focus:outline-none"
                                 type="text" 
