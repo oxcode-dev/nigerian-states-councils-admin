@@ -9,6 +9,7 @@ import LocalGovts from "./pages/LGAs"
 import Setting from "./pages/Settings"
 import Logout from "./pages/Logout"
 import Users from "./pages/Users"
+import ResetPassword from "./pages/ResetPassword"
 // import Wards from "./pages/Wards"
 
 function App() {
@@ -26,6 +27,12 @@ function App() {
         <Route path="/forgot-password" element={
           <PublicRoute>
             <ForgotPassword />
+          </PublicRoute>
+          } 
+        />
+         <Route path="/reset-password" element={
+          <PublicRoute>
+            <ResetPassword />
           </PublicRoute>
           } 
         />

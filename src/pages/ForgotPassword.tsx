@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import AuthLayout from "../layout/AuthLayout";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useToastContext } from "../contexts/ToastContext";
 import { post } from "../services";
 import { useState } from "react";
@@ -11,6 +11,7 @@ type ForgotPasswordFormProp = {
 export default function ForgotPassword() {
     const [isLoading, setIsLoading] = useState(false)
     const { showToast } = useToastContext()
+    const navigate = useNavigate();
     
     const {
         register,
@@ -33,13 +34,12 @@ export default function ForgotPassword() {
         const response = post(url, formData);
 
         return response.then((feedback) => {
-            if (feedback?.status === 201) {
-                showToast(
-                    'Success', 
-                    feedback?.data?.message || `Password reset instructions sent successfully`,
-                    'success', true, 10
-                )
-            }
+            showToast(
+                'Success', 
+                feedback?.data?.message || `Password reset instructions sent successfully`,
+                'success', true, 10
+            )
+            navigate('/reset-password')
         }).catch((error) => {
             console.log(error.response, 'new error')
             // setErrorBag(error?.response?.data?.message || 'An error occurred')

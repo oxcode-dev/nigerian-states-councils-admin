@@ -5,10 +5,12 @@ import { useToastContext } from "../contexts/ToastContext";
 import { post } from "../services";
 import { useState } from "react";
 
-type ForgotPasswordFormProp = {
+type ResetPasswordFormProp = {
     email: string
+    otp: string
+    new_password: string
 }
-export default function ForgotPassword() {
+export default function ResetPassword() {
     const [isLoading, setIsLoading] = useState(false)
     const { showToast } = useToastContext()
     
@@ -16,18 +18,22 @@ export default function ForgotPassword() {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<ForgotPasswordFormProp>({
+    } = useForm<ResetPasswordFormProp>({
         defaultValues: {
             email: '',
+            otp: '',
+            new_password: '',
         }
     });
 
-     const handleForm = async (data: ForgotPasswordFormProp) => {
+     const handleForm = async (data: ResetPasswordFormProp) => {
         setIsLoading(true)
-        const url = `/password/forgot`
+        const url = `/password/reset`
 
         const formData = { 
             email: data?.email,
+            otp: data?.otp,
+            new_password: data?.new_password,
         }
 
         const response = post(url, formData);
@@ -78,6 +84,39 @@ export default function ForgotPassword() {
                                 required
                             />
                             {errors.email && <span className="text-red-600 text-xs font-medium">Email is required</span>}
+                        </div>
+
+                        <div className="py-1">
+                            <label className="text-sm font-medium text-gray-500">Email</label>
+                            <input 
+                                className="block w-full h-12 bg-gray-100 border text-gray-500 rounded border-gray-200 my-1 p-2 focus:outline-none"
+                                type="email" 
+                                {...register("email",  { required: true })}
+                                required
+                            />
+                            {errors.email && <span className="text-red-600 text-xs font-medium">Email is required</span>}
+                        </div>
+
+                        <div className="py-1">
+                            <label className="text-sm font-medium text-gray-500">Email</label>
+                            <input 
+                                className="block w-full h-12 bg-gray-100 border text-gray-500 rounded border-gray-200 my-1 p-2 focus:outline-none"
+                                type="text" 
+                                {...register("otp",  { required: true })}
+                                required
+                            />
+                            {errors.otp && <span className="text-red-600 text-xs font-medium">OTP is required</span>}
+                        </div>
+
+                        <div className="py-1">
+                            <label className="text-sm font-medium text-gray-500">New Password</label>
+                            <input 
+                                className="block w-full h-12 bg-gray-100 border text-gray-500 rounded border-gray-200 my-1 p-2 focus:outline-none"
+                                type="password" 
+                                {...register("new_password",  { required: true })}
+                                required
+                            />
+                            {errors.new_password && <span className="text-red-600 text-xs font-medium">Password is required</span>}
                         </div>
 
                         <div className="py-1 flex justify-end">
