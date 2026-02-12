@@ -8,8 +8,8 @@ import { LGAS_QUERY_KEY } from '../constants';
 import { useToastContext } from '../contexts/ToastContext';
 import type { LgaFormProp } from '../types';
 import { useLocalStorageToken } from '../hooks/useLocalStorageToken';
-import { useFetchStates } from '../hooks/useFetchStates';
 import { post, put } from '../services';
+import { useFetchAllStates } from '../hooks/useFetchAllStates';
 
 
 type FormProp = {
@@ -22,7 +22,7 @@ const LgaForm = ({ open, setOpen, lga } : FormProp) => {
 
     const { showToast } = useToastContext()
     const { getToken } = useLocalStorageToken()
-    const { states } = useFetchStates()
+    const { states } = useFetchAllStates()
 
     const [errorBag, setErrorBag] = useState<string | null>(null)
 
