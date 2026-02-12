@@ -31,7 +31,7 @@ export const useFetchAllStates = () => {
     }, [stateList]);
 
     const metaData = useMemo(() => {
-            return (stateList as StatePaginationProp)?.metadata || null;
+        return (stateList as StatePaginationProp)?.metadata || null;
     }, [stateList]);
 
     return {
