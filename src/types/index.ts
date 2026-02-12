@@ -41,7 +41,8 @@ export type WardFormProp = {
 };
 
 export type StatePaginationProp = {
-    states: StateFormProp[];
+    states?: StateFormProp[];
+    data?: StateFormProp[];
     metadata: {
         page: number
         limit: number

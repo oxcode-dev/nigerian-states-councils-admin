@@ -27,7 +27,7 @@ export const useFetchAllStates = () => {
     });
 
     const states: StateFormProp[] = useMemo(() => {
-        return (stateList as StatePaginationProp)?.states || [];
+        return (stateList as StatePaginationProp)?.data || [];
     }, [stateList]);
 
     const metaData = useMemo(() => {
