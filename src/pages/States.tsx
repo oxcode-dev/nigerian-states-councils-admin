@@ -11,6 +11,7 @@ import { useToastContext } from "../contexts/ToastContext";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useLocalStorageToken } from "../hooks/useLocalStorageToken";
 import { deleteRequest } from "../services";
+import { EmptyState } from "../components/EmptyState";
 
 export default function States() {
     const { states, isFetching, setPage, metaData } = useFetchStates()
@@ -162,7 +163,11 @@ export default function States() {
                             </div>
                         </div>
                     </div>
-                ): null}
+                ): (
+                    <EmptyState 
+                        message="No states found. Please add a state to get started."
+                    />
+                )}
 
                 { isFormOpen && 
                     <StateForm 
