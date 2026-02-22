@@ -11,6 +11,7 @@ import { LGAS_QUERY_KEY } from "../constants";
 import LgaForm from "../forms/LgaForm";
 import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
 import { deleteRequest } from "../services";
+import { EmptyState } from "../components/EmptyState";
 
 export default function LocalGovts() {
     const { isFetching, lgas, metaData, setPage } = useFetchLocalGovt();
@@ -161,7 +162,11 @@ export default function LocalGovts() {
                             </div>
                         </div>
                     </div>
-                ): null}
+                ): (
+                    <EmptyState 
+                        message="No local government areas found. Please add a local government area to get started."
+                    />
+                )}
 
                 { isFormOpen && 
                     <LgaForm

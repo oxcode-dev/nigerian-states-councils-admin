@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from "react";
 
 type ConfirmDeleteModalProps = {
   active?: boolean;
+  isLoading?: boolean;
   message?: string | null;
   submitFn: () => void;
   onClose: (value: false) => void;
@@ -10,6 +11,7 @@ type ConfirmDeleteModalProps = {
 
 const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({
   active = true,
+  isLoading = false,
   message = "Are you want to delete this item?",
   submitFn,
   onClose,
@@ -49,21 +51,27 @@ const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({
               {message}
             </p>
 
-            <div className="mt-2 space-x-2">
-              <button
-                className="p-2 py-1 border border-white rounded-md text-sm bg-white text-red-600 cursor-pointer"
-                onClick={submitFn}
-              >
-                Yes
-              </button>
+            { !isLoading ? (
+              <div className="mt-2 space-x-2">
+                <button
+                  className="p-2 py-1 border border-white rounded-md text-sm bg-white text-red-600 cursor-pointer"
+                  onClick={submitFn}
+                >
+                  Yes
+                </button>
 
-              <button
-                className="p-2 py-1 border border-white rounded-md text-sm cursor-pointer"
-                onClick={() => onClose(false)}
-              >
-                No
-              </button>
-            </div>
+                <button
+                  className="p-2 py-1 border border-white rounded-md text-sm cursor-pointer"
+                  onClick={() => onClose(false)}
+                >
+                  No
+                </button>
+              </div>
+            ) : (
+              <div className="mt-2 space-x-2">
+                Loading...
+              </div>
+            )}
           </div>
 
           {/* Close button */}
