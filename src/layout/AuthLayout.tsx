@@ -1,5 +1,4 @@
 import PasswordImg from "../assets/password.svg";
-import { EmptyState } from "../components/EmptyState";
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
     return (
@@ -16,7 +15,6 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
                         <div className="w-full p-6 justify-center flex flex-col items-center h-full">
                             { children }
                         </div>
-                        <EmptyState />
                     </div>
                 </div>
             </div>
