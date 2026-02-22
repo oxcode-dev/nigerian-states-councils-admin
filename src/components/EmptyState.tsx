@@ -1,6 +1,6 @@
 // import NoDataImg from "../assets/no-data.svg";
 
-export function EmptyState({ message }: { message: string }) {
+export function EmptyState({ message }: { message: string | null }) {
     return (
         <div className="w-full h-full flex flex-col items-center justify-center gap-4">
             <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
