@@ -158,6 +158,7 @@ export default function Wards() {
                 { isDeleteModalOpen && 
                     <ConfirmDeleteModal 
                         active={isDeleteModalOpen} 
+                        isLoading={mutation.isPending}
                         message="Are you sure you want to delete this ward?" 
                         submitFn={onDeleteWard} 
                         onClose={() => setIsDeleteModalOpen(false)}

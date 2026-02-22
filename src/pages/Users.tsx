@@ -178,7 +178,8 @@ export default function Users() {
                 }
                 { isDeleteModalOpen && 
                     <ConfirmDeleteModal 
-                        active={isDeleteModalOpen} 
+                        active={isDeleteModalOpen}
+                        isLoading={mutation.isPending}
                         message="Are you sure you want to delete this user?" 
                         submitFn={onDeleteUser} 
                         onClose={() => setIsDeleteModalOpen(false)}
