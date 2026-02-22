@@ -178,6 +178,7 @@ export default function LocalGovts() {
                 { isDeleteModalOpen && 
                     <ConfirmDeleteModal 
                         active={isDeleteModalOpen} 
+                        isLoading={mutation.isPending}
                         message="Are you sure you want to delete this lga?" 
                         submitFn={onDeleteLga} 
                         onClose={() => setIsDeleteModalOpen(false)}
