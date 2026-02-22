@@ -179,6 +179,7 @@ export default function States() {
                 { isDeleteModalOpen && 
                     <ConfirmDeleteModal 
                         active={isDeleteModalOpen} 
+                        isLoading={mutation.isPending}
                         message="Are you sure you want to delete this state?" 
                         submitFn={onDeleteState} 
                         onClose={() => setIsDeleteModalOpen(false)}
